@@ -1,1 +1,11 @@
 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
+
+repo
+settings
+collaborators
+add people
+input email
+add to repo
+이메일 확인해라
+깃허브 데스크탑 다운받게하기
+clone repository 시켜서 git url 복붙해서 다운받게 하기
