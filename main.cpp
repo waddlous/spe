@@ -23,10 +23,10 @@
 //delay: waits a little
 
 //Include headers and use namespace std
-#include"headers/basic.h"
-#include"headers/vector3.h"
-#include"headers/draw.h"
-#include"headers/object.h"
+#include"headers/basic.hpp"
+#include"headers/vector3.hpp"
+#include"headers/draw.hpp"
+#include"headers/object.hpp"
 using namespace std;
 
 //!!!!Main Function!!!!

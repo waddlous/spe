@@ -1,5 +1,12 @@
 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
 
+how to push to repo:
+make edits
+'git add foo' with foo being the edited/new files
+git commit -a
+git push -u origin main
+check on the website
+
 repo
 settings
 collaborators
