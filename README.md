@@ -6,7 +6,7 @@
 Physics simulation including mass, velocity, gravity etc.  
 Isometric view for a 3-dimensional space  
 Simple CLI  
-Save the current state of the engine to files   
+Save the current state of the engine to files  
 Load engine states from files  
 Detailed object data log  
 
