@@ -17,7 +17,8 @@ Will add windows support
 (which is why the batch file is there)  
 Not considering to add OSX support  
 
-P.S.  
+## Note from Waddlous 
+
 This is my first ever github project :/  
 It's probably going to be pretty bad  
 Please don't roast me too badly about this  
