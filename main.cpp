@@ -23,11 +23,13 @@
 //delay: waits a little
 
 //Include headers and use namespace std
-#include"headers/basic.hpp"
-#include"headers/vector3.hpp"
+#include"headers/basic.hpp" //&& sdl
 #include"headers/draw.hpp"
-#include"headers/object.hpp"
+#include"headers/object.hpp" //&& v3, iostream
 using namespace std;
+
+//This will just cout stuff for me every so often
+void debugCout(Camera *cam);
 
 //!!!!Main Function!!!!
 int main()
@@ -41,6 +43,8 @@ int main()
 	//Set render draw color
 	SDL_SetRenderDrawColor(renderer,255,255,255,255);
 
+	Camera cam(new Vector3, new Vector2);
+
 	//!!!!Main Loop!!!!
 	bool quit{ false };
 	while ( quit == false )
@@ -52,15 +56,17 @@ int main()
 		}
 		
 		//Random stuff (for now)
-		lineMan(200,100,440,100);
-		lineMan(440,100,440,340);
-		lineMan(440,340,200,340);
-		lineMan(200,340,200,100);
-		SDL_RenderPresent(renderer);
+		FPSCap();
+		debugCout(&cam);
 
 	}
 
 	//Closes SDL (from basic.h)
 	close();
 	
+}
+
+void debugCout(Camera *cam)
+{
+	cout << deltaTime << "\n";
 }

@@ -1,6 +1,6 @@
 ::this is a comment
 @ECHO OFF
-::add the compile command here
+g++ example.cpp
 DIR
 PAUSE
 this is a batch script

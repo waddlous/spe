@@ -7,12 +7,54 @@ git commit -a
 git push -u origin main
 check on the website
 
+how to install g++ and sdl3 on windows:
+__g++ install begin__
+get the mingw64 installer (I have the installer on BEN 2)
+run it with all of the defaults
+in the installation manager click on:
+	mingw-developer-toolkit
+	mingw32-base
+	mingw32-gcc-g++
+	msys-base
+click installation -> apply changes
+it'll start to go crazy with downloading and installing (please work)
+check in the \MinGW\bin directory and test run them
+type 'env' in the crappy windows search
+environment variable -> system variable -> Path -> edit
+make new -> type in directory for the MinGW binaries
+__g++ install done__
+__sdl install begin__
+get the SDL package (I have it on BEN 2)
+soo *heh* i'm gonna put sdl inside mingw because i can
+and any env that i set is completely rejected by windows confusion
+soo yea anyways
+*hah* copy the SDL3 dir from include to the MinGW include
+it somehow works
+it does not work.
+i give up i'm gonna tell them to troubleshoot it i'm on linux anyway
+__sdl install done__
+
+tell my teammates to accept access to the repository:
 repo
 settings
 collaborators
 add people
 input email
 add to repo
-이메일 확인해라
-깃허브 데스크탑 다운받게하기
-clone repository 시켜서 git url 복붙해서 다운받게 하기
+tell to check email
+tell to install github desktop
+tell them to clone the repository
+
+
+Developer Log:
+
+25/06/07
+Today I failed to install sdl3 on windows (hooray)
+I gave up. Anyways
+The framerate capping seems to be fully functional (which is rare for me)
+I also touched up on some Vector3 class stuff and added Vector2
+The 'Camera' object type has been added
+It seems to work fine too? (i am fully expecting this to break someday)
+(not really)
+sooo yea
+interesting day today :/
