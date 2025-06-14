@@ -18,6 +18,16 @@ class Vector3
 
 	//Methods
 	public:
+	float magn() //Magnitude
+	{
+		float returnValue = float( sqrt(x*x+y*y+z*z) );
+		return returnValue;
+	}
+	Vector3 norm() //Normalize (keep direction, magnitude = 1)
+	{
+		Vector3* returnValue = new Vector3( this->x/this->magn(), this->y/this->magn(), this->z/this->magn() );
+		return *returnValue;
+	}
 
 	//Friends
 	friend std::ostream& operator<<(std::ostream& os, const Vector3 v3);

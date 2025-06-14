@@ -24,49 +24,62 @@
 
 //Include headers and use namespace std
 #include"headers/basic.hpp" //&& sdl
-#include"headers/draw.hpp"
 #include"headers/object.hpp" //&& v3, iostream
+#include"headers/cli.hpp"
+#include<iomanip>
 using namespace std;
 
 //This will just cout stuff for me every so often
-void debugCout(Camera *cam);
+void debugLoop(CRScreen screen);
 
 //!!!!Main Function!!!!
 int main()
 {
-	//Initialize ("init()" from basic.h)
+	//Initialize
 	if( !init() )
 	{
 		SDL_Log("Unable to initialize program!\n" );
 	}
 
 	//Set render draw color
-	SDL_SetRenderDrawColor(renderer,255,255,255,255);
+	SDL_SetRenderDrawColor(renderer,0,0,0,255);
 
+	//Create basic objects
 	Camera cam(new Vector3, new Vector2);
+	CRScreen screen(new Vector3);
+
+	//Debug stuff
 
 	//!!!!Main Loop!!!!
 	bool quit{ false };
 	while ( quit == false )
 	{
-		//Handle events (from basic.h)
+		//Handle events
 		if ( eventHandler() == 1 )
 		{
 			quit = true;
 		}
 		
-		//Random stuff (for now)
+		//Debug stuff
+		debugLoop(screen);
+
+		//Framerate cap
+		SDL_SetRenderDrawColor(renderer,255,255,255,255);
+		SDL_RenderPresent(renderer);
+		SDL_SetRenderDrawColor(renderer,0,0,0,255);
+		SDL_RenderClear(renderer);
 		FPSCap();
-		debugCout(&cam);
 
 	}
 
-	//Closes SDL (from basic.h)
+	//Closes SDL
 	close();
 	
 }
 
-void debugCout(Camera *cam)
+void debugLoop(CRScreen screen)
 {
-	cout << deltaTime << "\n";
+	Vector2 sup(0,0);
+	Vector2 later(640,480);
+	screen.line(&sup,&later);
 }

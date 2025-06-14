@@ -17,6 +17,11 @@ Edit the system path to include the directory to MinGW's binaries
 
 I have no idea.  
 
+### Development Environment
+
+"Notepad++" is recommended  
+Use command line to compile source
+
 ## Developer Log:
 
 ### 25/06/07
@@ -30,3 +35,10 @@ It seems to work fine too? (i am fully expecting this to break someday)
 (not really)  
 sooo yea  
 interesting day today :/  
+
+### 25/06/14
+
+Added magn() and norm()  
+Beginning to implement perspective projection  
+So far I have created the new "CRScreen" object  
+It will write to the screen  

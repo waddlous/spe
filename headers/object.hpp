@@ -16,11 +16,13 @@ class Camera
 	public:
 	Vector3 position;
 	Vector2 rotation;
+	float fov;
+	float distance; //distance to CRScreen
 
 	//Constructor
 	public:
-	Camera(Vector3 pos, Vector2 rot) : position(pos), rotation(rot) {}
-	Camera(Vector3 *pos, Vector2 *rot) : position(*pos), rotation(*rot) {} 
+	Camera(Vector3 pos, Vector2 rot, float angle = 60) : position(pos), rotation(rot), fov(angle) {}
+	Camera(Vector3 *pos, Vector2 *rot, float angle = 60) : position(*pos), rotation(*rot), fov(angle) {} 
 
 	//Methods (so far so good)
 	public:
@@ -39,9 +41,32 @@ class Camera
 	{
 		rotation = *newrot;
 	}
-	//turn: adds to the rotatin of the camera
+	//turn: adds to the rotation of the camera
 	void turn(Vector2 *newrot)
 	{
 		rotation = rotation + *newrot;
+	}
+};
+
+//Camera Render Screen object
+class CRScreen
+{
+	//Attributes
+	public:
+	Vector3 position;
+	Vector2* plane = new Vector2(LOGIC_SCREEN_W, LOGIC_SCREEN_H); //screen dimensions
+
+	//Constructor
+	public:
+	CRScreen(Vector3 pos) : position(pos) {}
+	CRScreen(Vector3* pos) : position(*pos) {}
+	
+	//Methods
+	public:
+	void line(Vector2* start, Vector2* end)
+	{
+		SDL_SetRenderDrawColor(renderer,255,255,255,255);
+		SDL_RenderLine(renderer, start->x, -start->y+480, end->x, -end->y+480);
+		SDL_SetRenderDrawColor(renderer,0,0,0,255);
 	}
 };

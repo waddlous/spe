@@ -8,9 +8,11 @@
 using namespace std;
 
 //Global constants and variables
-constexpr int screenWidth{ 1280 };
-constexpr int screenHeight{ 960 };
-constexpr float singleFrame{ 1000 / 60 };
+constexpr int SCREEN_W{ 1280 };
+constexpr int SCREEN_H{ 960 };
+constexpr int LOGIC_SCREEN_W{ 640 };
+constexpr int LOGIC_SCREEN_H{ 480 };
+constexpr float SINGLEFRAME{ 1000 / 60 };
 SDL_Window* window{ nullptr };
 SDL_Renderer* renderer{ nullptr };
 SDL_Event e;
@@ -34,7 +36,7 @@ bool init()
 	else
 	{
 		//Create window
-		window = SDL_CreateWindow( "Simple Physics Engine", screenWidth, screenHeight, 0 );
+		window = SDL_CreateWindow( "Simple Physics Engine", SCREEN_W, SCREEN_H, 0 );
 		if( window == nullptr )
 		{
 			SDL_Log( "Window could not be created! SDL error: %s\n", SDL_GetError() );
@@ -54,7 +56,7 @@ bool init()
 	SDL_zero(e);
 
 	//Set logical resolution
-	SDL_SetRenderLogicalPresentation(renderer, 640, 480, SDL_LOGICAL_PRESENTATION_STRETCH);
+	SDL_SetRenderLogicalPresentation(renderer, LOGIC_SCREEN_W, LOGIC_SCREEN_H, SDL_LOGICAL_PRESENTATION_STRETCH);
 
 	//Friendly startup message
 	cout << "Welcome to the Simple Physics Engine!\n\n";
@@ -76,7 +78,7 @@ void close()
 int eventHandler()
 {
 	//Return value
-	int ret{ 0 };
+	int returnValue{ 0 };
 
 	//Get event data
 	while( SDL_PollEvent( &e ) )
@@ -84,11 +86,11 @@ int eventHandler()
 		//If event is quit type
 		if( e.type == SDL_EVENT_QUIT )
 		{
-			ret = 1;
+			returnValue = 1;
 		}
 	}
 	
-	return ret;
+	return returnValue;
 }
 
 //Framerate cap (idk if it works but it probably does, also i used deltatime hehe)
@@ -96,6 +98,6 @@ void FPSCap()
 {
 	newTime = SDL_GetTicks();
 	deltaTime = newTime - oldTime;
-	if (deltaTime < singleFrame) SDL_Delay(singleFrame - deltaTime);
+	if (deltaTime < SINGLEFRAME) SDL_Delay(SINGLEFRAME - deltaTime);
 	oldTime = newTime;
 }
