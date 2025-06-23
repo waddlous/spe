@@ -13,12 +13,5 @@ Detailed object data log
 ## Platforms:
 
 Runs natively on linux  
-Will add windows support  
-(which is why the batch file is there)  
+Will NOT add windows support  
 Not considering to add OSX support  
-
-## Note from Waddlous 
-
-This is my first ever github project :/  
-It's probably going to be pretty bad  
-Please don't roast me too badly about this  
