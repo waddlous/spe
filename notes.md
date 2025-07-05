@@ -42,3 +42,13 @@ Added magn() and norm()
 Beginning to implement perspective projection  
 So far I have created the new "CRScreen" object  
 It will write to the screen  
+
+### 25/07/05
+
+Planning to use a CLI library(dabueke77 cli)  
+Fixed(?) deltaTime  
+Tested framerate(works okay)  
+Touched up on Camera and CRScreen  
+Added getd()  
+Split object.hpp and render.hpp  
+Still no idea about sdl3 on windows :/  

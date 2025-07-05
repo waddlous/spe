@@ -17,7 +17,7 @@ SDL_Window* window{ nullptr };
 SDL_Renderer* renderer{ nullptr };
 SDL_Event e;
 Uint32 oldTime = 0;
-Uint32 newTime = 0;
+Uint32 nowTime = 0;
 Uint32 deltaTime = 0;
 /* i want to put SDL_zero( e ); here but i have to initialize sdl first */
 
@@ -96,8 +96,8 @@ int eventHandler()
 //Framerate cap (idk if it works but it probably does, also i used deltatime hehe)
 void FPSCap()
 {
-	newTime = SDL_GetTicks();
-	deltaTime = newTime - oldTime;
+	nowTime = SDL_GetTicks();
+	deltaTime = nowTime - oldTime;
 	if (deltaTime < SINGLEFRAME) SDL_Delay(SINGLEFRAME - deltaTime);
-	oldTime = newTime;
+	oldTime = nowTime;
 }

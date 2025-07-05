@@ -25,12 +25,17 @@
 //Include headers and use namespace std
 #include"headers/basic.hpp" //&& sdl
 #include"headers/object.hpp" //&& v3, iostream
+#include"headers/render.hpp"
 #include"headers/cli.hpp"
 #include<iomanip>
 using namespace std;
 
 //This will just cout stuff for me every so often
 void debugLoop(CRScreen screen);
+
+//Create basic objects
+Camera cam(new Vector3, new Vector2);
+CRScreen screen(new Vector3(0,0,100));
 
 //!!!!Main Function!!!!
 int main()
@@ -44,11 +49,7 @@ int main()
 	//Set render draw color
 	SDL_SetRenderDrawColor(renderer,0,0,0,255);
 
-	//Create basic objects
-	Camera cam(new Vector3, new Vector2);
-	CRScreen screen(new Vector3);
-
-	//Debug stuff
+	cam.assign(&screen);
 
 	//!!!!Main Loop!!!!
 	bool quit{ false };
@@ -60,6 +61,9 @@ int main()
 			quit = true;
 		}
 		
+		//Update objects
+		cam.update();
+
 		//Debug stuff
 		debugLoop(screen);
 
@@ -79,7 +83,5 @@ int main()
 
 void debugLoop(CRScreen screen)
 {
-	Vector2 sup(0,0);
-	Vector2 later(640,480);
-	screen.line(&sup,&later);
+	cout << "cam " << cam.position << ", screen " << screen.position << ", distance " << cam.distance << endl;
 }

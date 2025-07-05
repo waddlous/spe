@@ -1,72 +1,66 @@
-//Object (and camera i guess) class header file
+//Object(for physics) class header file
 
 //Include libraries (and using namespace std)
 #include "vector3.hpp"
 using namespace std;
 
-//Global constants and variables
-
+//Global constants and variables and functions
 
 //I'm gonna have to use A LOT of comments for this one
 
-//Camera object
-class Camera
+//Simple physics affected Box object
+class Box 
 {
 	//Attributes
 	public:
-	Vector3 position;
-	Vector2 rotation;
-	float fov;
-	float distance; //distance to CRScreen
+	Vector3 position; //center of the box
+	Vector3 point[8]; //check documentation for specifics
+	bool dynamic; //true -> affected by physics, false -> immovable object
 
 	//Constructor
 	public:
-	Camera(Vector3 pos, Vector2 rot, float angle = 60) : position(pos), rotation(rot), fov(angle) {}
-	Camera(Vector3 *pos, Vector2 *rot, float angle = 60) : position(*pos), rotation(*rot), fov(angle) {} 
+	Box(Vector3 pos, bool dyna) : position(pos), dynamic(dyna) {}
 
-	//Methods (so far so good)
-	public:
-	//tp: teleports the camera to a location
+	//tp: teleports the box to a location
 	void tp(Vector3 *newpos)
 	{
 		position = *newpos;
 	}
-	//move: adds to the position of the camera
+	//move: adds to the position of the box
 	void move(Vector3 *newpos)
 	{
 		position = position + *newpos;
 	}
-	//look: immediately looks in a direction
-	void look(Vector2 *newrot)
-	{
-		rotation = *newrot;
-	}
-	//turn: adds to the rotation of the camera
-	void turn(Vector2 *newrot)
-	{
-		rotation = rotation + *newrot;
-	}
+
+	//Methods
+	public:
+
 };
 
-//Camera Render Screen object
-class CRScreen
+//Simple physics affected Octahedron object
+class Octa
 {
 	//Attributes
 	public:
-	Vector3 position;
-	Vector2* plane = new Vector2(LOGIC_SCREEN_W, LOGIC_SCREEN_H); //screen dimensions
+	Vector3 position; //center of the octahedron
+	Vector3 point[6]; //check documentation for specifics
+	bool dynamic; //true -> affected by physics, false -> immovable object
 
 	//Constructor
 	public:
-	CRScreen(Vector3 pos) : position(pos) {}
-	CRScreen(Vector3* pos) : position(*pos) {}
-	
-	//Methods
+	Octa(Vector3 pos, bool dyna) : position(pos), dynamic(dyna) {}
+
+	//Methods (so far so good)
 	public:
-	void line(Vector2* start, Vector2* end)
+	//tp: teleports the octahedron to a location
+	void tp(Vector3 *newpos)
 	{
-		SDL_SetRenderDrawColor(renderer,255,255,255,255);
-		SDL_RenderLine(renderer, start->x, -start->y+480, end->x, -end->y+480);
-		SDL_SetRenderDrawColor(renderer,0,0,0,255);
+		position = *newpos;
 	}
+	//move: adds to the position of the octahedron 
+	void move(Vector3 *newpos)
+	{
+		position = position + *newpos;
+	}
+
 };

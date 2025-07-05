@@ -73,7 +73,7 @@ class Vector2
 
 	//Methods
 	public:
-	//Since angles are 0 <= x < 360, -360 vector2 if it goes over 360
+	//Since angles are 0 <= x < 360, remainder of 360 is vector2 if it goes over 360
 	void asAngle()
 	{
 		x = fmod(x, float(360));
