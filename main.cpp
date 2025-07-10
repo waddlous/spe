@@ -26,7 +26,7 @@
 #include"headers/basic.hpp" //&& sdl
 #include"headers/object.hpp" //&& v3, iostream
 #include"headers/render.hpp"
-#include"headers/cli.hpp"
+//#include"headers/cli.hpp"
 #include<iomanip>
 using namespace std;
 
