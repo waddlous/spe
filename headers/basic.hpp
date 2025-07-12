@@ -5,6 +5,9 @@
 #include<SDL3/SDL_main.h>
 #include<string>
 #include<iostream>
+#include<math.h>
+#include<iomanip>
+//#include"headers/cli.hpp"
 using namespace std;
 
 //Global constants and variables
@@ -19,7 +22,6 @@ SDL_Event e;
 Uint32 oldTime = 0;
 Uint32 nowTime = 0;
 Uint32 deltaTime = 0;
-/* i want to put SDL_zero( e ); here but i have to initialize sdl first */
 
 //Startup function
 bool init()
@@ -57,6 +59,9 @@ bool init()
 
 	//Set logical resolution
 	SDL_SetRenderLogicalPresentation(renderer, LOGIC_SCREEN_W, LOGIC_SCREEN_H, SDL_LOGICAL_PRESENTATION_STRETCH);
+
+	//Forces out of fullscreen
+	SDL_SetWindowFullscreen(window,false);
 
 	//Friendly startup message
 	cout << "Welcome to the Simple Physics Engine!\n\n";

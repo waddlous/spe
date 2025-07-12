@@ -23,19 +23,23 @@
 //delay: waits a little
 
 //Include headers and use namespace std
-#include"headers/basic.hpp" //&& sdl
-#include"headers/object.hpp" //&& v3, iostream
+#include"headers/basic.hpp" //&& sdl, string, iostream, iomanip
+#include"headers/vector3.hpp"
+#include"headers/object.hpp"
 #include"headers/render.hpp"
-//#include"headers/cli.hpp"
-#include<iomanip>
 using namespace std;
 
 //This will just cout stuff for me every so often
-void debugLoop(CRScreen screen);
+void debugLoop();
 
 //Create basic objects
 Camera cam(new Vector3, new Vector2);
 CRScreen screen(new Vector3(0,0,100));
+Box boxObject(new Vector3(100,100,100), false);
+Vector2 first(100,100);
+Vector2 second(100,200);
+Vector2 third(200,200);
+Vector2 fourth(200,100);
 
 //!!!!Main Function!!!!
 int main()
@@ -65,7 +69,15 @@ int main()
 		cam.update();
 
 		//Debug stuff
-		debugLoop(screen);
+		debugLoop();
+		first = first + *(new Vector2(0,1));
+		second = second + *(new Vector2(1,0));
+		third = third + *(new Vector2(0,-1));
+		fourth = fourth + *(new Vector2(-1,0));
+		if (first.y > 200) first = *(new Vector2(100,100));
+		if (second.x > 200) second = *(new Vector2(100,200));
+		if (third.y < 100) third = *(new Vector2(200,200));
+		if (fourth.x < 100) fourth = *(new Vector2(200,100));
 
 		//Framerate cap
 		SDL_SetRenderDrawColor(renderer,255,255,255,255);
@@ -81,7 +93,11 @@ int main()
 	
 }
 
-void debugLoop(CRScreen screen)
+void debugLoop()
 {
-	cout << "cam " << cam.position << ", screen " << screen.position << ", distance " << cam.distance << endl;
+	screen.line(&first,&second);
+	screen.line(&second,&third);
+	screen.line(&third,&fourth);
+	screen.line(&fourth,&first);
+	cout << "1: " << first << " 2: " << second << " 3: " << third << " 4: " << fourth << "\n";
 }

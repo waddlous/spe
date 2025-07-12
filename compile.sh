@@ -4,4 +4,4 @@ if g++ main.cpp -lSDL3 -o"spe"; then
 else
 	echo "Errors found!"
 fi
-ls
+ls --color=auto

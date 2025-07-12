@@ -13,6 +13,13 @@ Vector3 will be used mainly for positioning
 Vector2 will be used for surfaces and camera angle  
 (I WILL NOT BE USING QUATERNION)  
 
+### (Applies to all vectors)
+
+I don't want to deal with pointers :/  
+So vectors cannot be assigned through pointers  
+Use the asterisk to assign through pointers / new  
+(as of now, could change later)  
+
 ## FOV
 
 The central angle that the view point and render screen make  
@@ -21,6 +28,8 @@ So at 180 FOV, the view point is inside the render screen
 
 ## Object Points
 
+object points will be saved as RELATIVE VECTORS
+(point[0] = (0,0,0) != *any_other_vector* = (0,0,0))  
 x   y   z  
 
 Box:  

@@ -1,7 +1,6 @@
 //Object(for physics) class header file
 
 //Include libraries (and using namespace std)
-#include "vector3.hpp"
 using namespace std;
 
 //Global constants and variables and functions
@@ -17,10 +16,33 @@ class Box
 	Vector3 point[8]; //check documentation for specifics
 	bool dynamic; //true -> affected by physics, false -> immovable object
 
-	//Constructor
+	//Constructor (will have default points, make a function to replace it i guess)
 	public:
-	Box(Vector3 pos, bool dyna) : position(pos), dynamic(dyna) {}
+	Box(Vector3 pos, bool dyna) : position(pos), dynamic(dyna)
+	{
+		point[0] = (-1,-1,-1);
+		point[1] = (1,-1,-1);
+		point[2] = (1,-1,1);
+		point[3] = (-1,-1,1);
+		point[4] = (-1,1,-1);
+		point[5] = (1,1,-1);
+		point[6] = (1,1,1);
+		point[7] = (-1,1,1);
+	}
+	Box(Vector3 *pos, bool dyna) : position(*pos), dynamic(dyna)
+	{
+		point[0] = (-1,-1,-1);
+		point[1] = (1,-1,-1);
+		point[2] = (1,-1,1);
+		point[3] = (-1,-1,1);
+		point[4] = (-1,1,-1);
+		point[5] = (1,1,-1);
+		point[6] = (1,1,1);
+		point[7] = (-1,1,1);
+	}
 
+	//Methods
+	public:
 	//tp: teleports the box to a location
 	void tp(Vector3 *newpos)
 	{
@@ -31,9 +53,13 @@ class Box
 	{
 		position = position + *newpos;
 	}
-
-	//Methods
-	public:
+	//real position: returns 'real' position of point
+	Vector3 *rpoint(int num)
+	{
+		Vector3 *returnValue;
+		returnValue = new Vector3(this->position + this->point[num]);
+		return returnValue;
+	}
 
 };
 

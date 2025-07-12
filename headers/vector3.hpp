@@ -1,8 +1,6 @@
 //Vector3 (and euler i guess) class header file
 
 //Include libraries (and using namespace std)
-#include<iostream>
-#include<math.h>
 using namespace std;
 
 //Vector3 class

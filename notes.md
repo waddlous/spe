@@ -52,3 +52,15 @@ Touched up on Camera and CRScreen
 Added getd()  
 Split object.hpp and render.hpp  
 Still no idea about sdl3 on windows :/  
+
+### 25/07/12
+
+First time developing on Arch Hyprland (hooray)  
+Beginning to establish a spatial system  
+Made a demo geometry dash-esque spinning cube  
+Used a metronome to see if deltaTime is really working  
+Apparently it works...?  
+Checked for memory leaks  
+There seems to be none  
+Not much done today  
+Maybe I should figure out how to install sdl3 on windows :/  
