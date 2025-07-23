@@ -99,5 +99,4 @@ void debugLoop()
 	screen.line(&second,&third);
 	screen.line(&third,&fourth);
 	screen.line(&fourth,&first);
-	cout << "1: " << first << " 2: " << second << " 3: " << third << " 4: " << fourth << "\n";
 }

@@ -1,14 +1,22 @@
-cmake_minimum_required(VERSION 3.20)
-
+cmake_minimum_required(VERSION 3.5)
 project(spe)
-add_executable(spe-win) # WIN32 - hide the console like this add_executable(spe-win WIN32)
 
-target_sources(app
-PRIVATE
-	main.cpp
-)
+# Create an option to switch between a system sdl library and a vendored SDL library
+option(BUILD_SHARED_LIBS "Build using shared libraries" OFF)
+option(SPE_VENDORED "Use vendored libraries" ON)
 
-find_package(SDL3)
-target_link_libraries(spe-win PRIVATE SDL3::SDL3)
-target_compile_definitions(spe-win PRIVATE SLD_MAINE_USE_CALLBACKS)
-target_link_options(spe-win PRIVATE -static)
+if(SPE_VENDORED)
+    # This assumes you have added SDL as a submodule in vendored/SDL
+    add_subdirectory(SDL)
+else()
+    # 1. Look for a SDL3 package,
+    # 2. look for the SDL3-shared component, and
+    # 3. fail if the shared component cannot be found.
+    find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3-shared)
+endif()
+
+# Create your game executable target as usual
+add_executable(spe WIN32 main.cpp)
+
+# Link to the actual SDL3 library.
+target_link_libraries(spe PRIVATE SDL3::SDL3)

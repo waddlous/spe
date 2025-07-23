@@ -64,3 +64,15 @@ Checked for memory leaks
 There seems to be none  
 Not much done today  
 Maybe I should figure out how to install sdl3 on windows :/  
+
+### 25/07/23
+
+Using cmake  
+Somehow working???  
+Idk I'm still doing stuff  
+Uhhhhh  
+It worked...?  
+Wow  
+This is great  
+I should use cmake more often  
+This means I can probably build from windows  
