@@ -13,6 +13,13 @@ Detailed object data log
 ## Platforms:
 
 Runs natively on linux  
-Will add windows support  
-(which is why the batch file is there)  
+Runs natively on windows
 Not considering to add OSX support  
+
+## Building:
+
+cd to the main spe directory  
+`cmake -S . -B build`  
+`cmake --build build`  
+The executable will be located in spe/build  
+The executable included with the repo is for linux  

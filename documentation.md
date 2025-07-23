@@ -4,6 +4,12 @@
 This is the documentation for spe  
 Basically this is where I put the theory stuff  
 
+## CMake
+
+I'm not really sure how it works  
+I think it compiles SDL3 *and* spe together  
+Using the copy of SDL inside this project  
+
 ## Vectors
 
 Vector3 has direction and magnitude in 3 dimensions  
@@ -29,7 +35,7 @@ So at 180 FOV, the view point is inside the render screen
 ## Object Points
 
 object points will be saved as RELATIVE VECTORS
-(point[0] = (0,0,0) != *any_other_vector* = (0,0,0))  
+(point[0] = (0,0,0) != any-other-vector = (0,0,0))  
 x   y   z  
 
 Box:  
