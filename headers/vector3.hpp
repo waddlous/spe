@@ -3,6 +3,9 @@
 //Include libraries (and using namespace std)
 using namespace std;
 
+myVector(1,2,3)
+
+
 //Vector3 class
 class Vector3
 {
@@ -14,13 +17,14 @@ class Vector3
 	public:
 	Vector3(float X = 0, float Y = 0, float Z = 0) : x(X), y(Y), z(Z) {}
 
-	//Methods
+	//Class의 함수는 메서드 (Method)
 	public:
 	float magn() //Magnitude
 	{
 		float returnValue = float( sqrt(x*x+y*y+z*z) );
 		return returnValue;
 	}
+	//NOT CONSTRUCTOR 생성자가 아니다
 	Vector3 norm() //Normalize (keep direction, magnitude = 1)
 	{
 		Vector3* returnValue = new Vector3( this->x/this->magn(), this->y/this->magn(), this->z/this->magn() );

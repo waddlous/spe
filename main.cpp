@@ -32,7 +32,8 @@ using namespace std;
 //This will just cout stuff for me every so often
 void debugLoop();
 
-//Create basic objects
+//Create basic object
+//기본적인(?) 오브젝트
 Camera cam(new Vector3, new Vector2);
 CRScreen screen(new Vector3(0,0,100));
 Box boxObject(new Vector3(100,100,100), false);
@@ -56,7 +57,7 @@ int main()
 	cam.assign(&screen);
 
 	//!!!!Main Loop!!!!
-	bool quit{ false };
+	bool quit = false;
 	while ( quit == false )
 	{
 		//Handle events
@@ -87,6 +88,7 @@ int main()
 		FPSCap();
 
 	}
+	//END OF WHILE 
 
 	//Closes SDL
 	close();
