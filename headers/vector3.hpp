@@ -3,9 +3,6 @@
 //Include libraries (and using namespace std)
 using namespace std;
 
-myVector(1,2,3)
-
-
 //Vector3 class
 class Vector3
 {
