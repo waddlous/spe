@@ -27,6 +27,7 @@
 #include"headers/vector3.hpp"
 #include"headers/object.hpp"
 #include"headers/render.hpp"
+#include"headers/maths.hpp"
 using namespace std;
 
 //This will just cout stuff for me every so often
@@ -34,8 +35,9 @@ void debugLoop();
 
 //Create basic object
 //기본적인(?) 오브젝트
-Camera cam(new Vector3, new Vector2);
-CRScreen screen(new Vector3(0,0,100));
+Camera cam(new Vector3, new Vector2); //(0,0,0)
+CRScreen screen(new Vector3(0,0,-100)); //(0,0,-100)
+Vector3 point(0,50,-200); //(0,50,-200)
 Box boxObject(new Vector3(100,100,100), false);
 Vector2 first(100,100);
 Vector2 second(100,200);
@@ -99,8 +101,9 @@ int main()
 
 void debugLoop()
 {
-	screen.line(&first,&second);
-	screen.line(&second,&third);
-	screen.line(&third,&fourth);
-	screen.line(&fourth,&first);
+	screen.drawLine(&first,&second);
+	screen.drawLine(&second,&third);
+	screen.drawLine(&third,&fourth);
+	screen.drawLine(&fourth,&first);
+	cout << "screen->normal: " << screen.normal << endl;
 }

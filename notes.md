@@ -85,3 +85,8 @@ I tried for 2 hours.
 Windows sucks  
 It fails at 97%  
 oh well  
+Today I began writing the intersection thing  
+Gosh  
+I am in so much pain  
+I need to learn about vectors (officially)  
+And I have to be able to put it into code  

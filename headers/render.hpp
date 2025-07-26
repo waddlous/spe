@@ -4,10 +4,10 @@
 using namespace std;
 
 //Global constants and variables and functions
-Vector3 getd(Vector3* me, Vector3* you)
+Vector3 getd(Vector3 me, Vector3 you)
 {
 	Vector3 returnValue;
-	returnValue = *me - *you;
+	returnValue = you - me;
 	return returnValue;
 }
 
@@ -19,7 +19,8 @@ class CRScreen
 	//Attributes
 	public:
 	Vector3 position; //position of the screen
-	Vector2* plane = new Vector2(LOGIC_SCREEN_W, LOGIC_SCREEN_H); //screen dimensions 650x480
+	Vector3 normal; //normal of the screen
+	//Vector2* plane = new Vector2(LOGIC_SCREEN_W, LOGIC_SCREEN_H); //screen dimensions 650x480
 
 	//Constructor
 	public:
@@ -28,7 +29,7 @@ class CRScreen
 	
 	//Methods
 	public:
-	void line(Vector2 *start, Vector2 *end) //this object deals with drawing
+	void drawLine(Vector2 *start, Vector2 *end) //this one deals with drawing
 	{
 		SDL_SetRenderDrawColor(renderer,255,138,218,255);
 		SDL_RenderLine(renderer, start->x, -start->y+480, end->x, -end->y+480);
@@ -58,6 +59,7 @@ class Camera
 	void assign(CRScreen *thisscreen)
 	{
 		myscreen = thisscreen;
+		//myscreen->normal = getd(myscreen->position, this->position);
 	}
 	//tp: teleports the camera to a location
 	void tp(Vector3 *newpos)
@@ -81,6 +83,10 @@ class Camera
 	}
 	void update()
 	{
-		distance = getd(&(this->position), &(myscreen->position));
+		distance = getd(this->position, myscreen->position);
+		//set myscreen's normal to the getd of
+		//cam's pos and myscreen's pos
+		myscreen->normal = getd(myscreen->position,this->position);
+		
 	}
 };
