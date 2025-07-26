@@ -7,8 +7,9 @@ Basically this is where I put the theory stuff
 ## CMake
 
 I'm not really sure how it works  
-I think it compiles SDL3 *and* spe together  
-Using the copy of SDL inside this project  
+I think it builds the project  
+Then uses a compiler (gcc in my case) to compile  
+Also it uses the copy of SDL in the project  
 
 ## Vectors
 

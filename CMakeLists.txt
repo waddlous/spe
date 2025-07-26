@@ -6,7 +6,7 @@ option(BUILD_SHARED_LIBS "Build using shared libraries" OFF)
 option(SPE_VENDORED "Use vendored libraries" ON)
 
 if(SPE_VENDORED)
-    # This assumes you have added SDL as a submodule in vendored/SDL
+    # This assumes you have added SDL as a submodule in SDL
     add_subdirectory(SDL)
 else()
     # 1. Look for a SDL3 package,

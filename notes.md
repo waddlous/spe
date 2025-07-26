@@ -15,12 +15,12 @@ Edit the system path to include the directory to MinGW's binaries
 
 ### SDL3 Install
 
-I have no idea.  
+I just included it in the project :>  
 
 ### Development Environment
 
 "Notepad++" is recommended  
-Use command line to compile source
+Use command line to compile source  
 
 ## Developer Log:
 
@@ -76,3 +76,12 @@ Wow
 This is great  
 I should use cmake more often  
 This means I can probably build from windows  
+
+### 25/07/26
+
+Testing cmake on windows  
+Let's see if it works  
+I tried for 2 hours.  
+Windows sucks  
+It fails at 97%  
+oh well  

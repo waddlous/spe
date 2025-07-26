@@ -93,6 +93,8 @@ int main()
 	//Closes SDL
 	close();
 	
+	//Obligatory main() return
+	return 0;
 }
 
 void debugLoop()

@@ -19,7 +19,7 @@ class CRScreen
 	//Attributes
 	public:
 	Vector3 position; //position of the screen
-	Vector2* plane = new Vector2(LOGIC_SCREEN_W, LOGIC_SCREEN_H); //screen dimensions
+	Vector2* plane = new Vector2(LOGIC_SCREEN_W, LOGIC_SCREEN_H); //screen dimensions 650x480
 
 	//Constructor
 	public:
@@ -30,7 +30,7 @@ class CRScreen
 	public:
 	void line(Vector2 *start, Vector2 *end) //this object deals with drawing
 	{
-		SDL_SetRenderDrawColor(renderer,255,255,255,255);
+		SDL_SetRenderDrawColor(renderer,255,138,218,255);
 		SDL_RenderLine(renderer, start->x, -start->y+480, end->x, -end->y+480);
 		SDL_SetRenderDrawColor(renderer,0,0,0,255);
 	}
