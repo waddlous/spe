@@ -17,22 +17,39 @@ class Box2D
 	bool dynamic; //true -> affected by physics, false -> immovable object
 	float mass = 1; //IN KG
 	Vector2 velocity = *new Vector2(0,0); //default: stationary
-	const Vector2 zero = Vector2(100,100);
-	const Vector2 one = Vector2(-100,100);
-	const Vector2 two = Vector2(-100,-100);
-	const Vector2 three = Vector2(100,-100);
+	Vector2 zero = Vector2(10,10);
+	Vector2 one = Vector2(-10,10);
+	Vector2 two = Vector2(-10,-10);
+	Vector2 three = Vector2(10,-10);
+	float scale = 1;
 
 	//Constructor (will have default points, make a function to replace it i guess)
 	public:
-	Box2D(Vector2 pos, bool dyna) : position(pos), dynamic(dyna)
+	Box2D(Vector2 pos, bool dyna, float scl = 1) : position(pos), dynamic(dyna), scale(scl)
 	{
+		zero.x *= scale;
+		zero.y *= scale;
+		one.x *= scale;
+		one.y *= scale;
+		two.x *= scale;
+		two.y *= scale;
+		three.x *= scale;
+		three.y *= scale;
 		point[0] = zero + pos;
 		point[1] = one + pos;
 		point[2] = two + pos;
 		point[3] = three + pos;
 	}
-	Box2D(Vector2 *pos, bool dyna) : position(*pos), dynamic(dyna)
+	Box2D(Vector2 *pos, bool dyna, float scl = 1) : position(*pos), dynamic(dyna)
 	{
+		zero.x *= scale;
+		zero.y *= scale;
+		one.x *= scale;
+		one.y *= scale;
+		two.x *= scale;
+		two.y *= scale;
+		three.x *= scale;
+		three.y *= scale;
 		point[0] = zero + *pos;
 		point[1] = one + *pos;
 		point[2] = two + *pos;
@@ -59,6 +76,14 @@ class Box2D
 	void update()
 	{
 		position = position + velocity;
+		zero.x *= scale;
+		zero.y *= scale;
+		one.x *= scale;
+		one.y *= scale;
+		two.x *= scale;
+		two.y *= scale;
+		three.x *= scale;
+		three.y *= scale;
 		point[0] = zero + position;
 		point[1] = one + position;
 		point[2] = two + position;

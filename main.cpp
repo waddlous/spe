@@ -35,7 +35,7 @@ using namespace std;
 void debugLoop();
 
 //debug stuff
-Box2D box(new Vector2(200,200), true);
+Box2D box(new Vector2(200,200), true, 2);
 
 //!!!!Main Function!!!!
 int main()
@@ -49,6 +49,7 @@ int main()
 	//Set render draw color
 	SDL_SetRenderDrawColor(renderer,0,0,0,255);
 
+	box.velocity = *new Vector2(3,20);
 	//!!!!Main Loop!!!!
 	bool quit = false;
 	while ( quit == false )
@@ -84,8 +85,6 @@ int main()
 
 void debugLoop()
 {
-	box.drawBox();
-	box.addForce(*new Vector2(0.1,0.1));
+	box.addForce(*new Vector2(0,-0.98));
 	box.update();
-	cout << box.position << endl;
 }
