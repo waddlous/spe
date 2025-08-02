@@ -95,3 +95,12 @@ And I have to be able to put it into code
 
 ***CHANGED PLANS FROM 3D TO 2D***  
 
+### 25/08/02
+
+Mass will be in kilograms  
+constructor() : **stuff**  
+{  
+    **other stuff**  
+}  
+**other stuff** will be run first  
+1 N = 1kg•m•s^-2  

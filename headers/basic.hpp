@@ -15,7 +15,7 @@ constexpr int SCREEN_W{ 1280 };
 constexpr int SCREEN_H{ 960 };
 constexpr int LOGIC_SCREEN_W{ 640 };
 constexpr int LOGIC_SCREEN_H{ 480 };
-constexpr float SINGLEFRAME{ 1000 / 60 };
+constexpr float SINGLEFRAME{ 1000 / 60 }; //16.666...ms
 SDL_Window* window{ nullptr };
 SDL_Renderer* renderer{ nullptr };
 SDL_Event e;
@@ -104,5 +104,4 @@ void FPSCap()
 	nowTime = SDL_GetTicks();
 	deltaTime = nowTime - oldTime;
 	if (deltaTime < SINGLEFRAME) SDL_Delay(SINGLEFRAME - deltaTime);
-	oldTime = nowTime;
 }

@@ -1,7 +1,8 @@
 #!/bin/bash
 if g++ main.cpp -lSDL3 -o"spe"; then
-	echo "Compiled successfully"
+	printf '************\nCompiled successfully\n************\n'
 else
-	echo "Errors found!"
+	printf '\nErrors found!\n'
 fi
 ls --color=auto
+printf '\n'

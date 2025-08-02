@@ -1,7 +1,3 @@
-
-//this is an edit :>
-
-
 //This is the main c++ file for the "Simple Physics Engine (SPE)"
 //Make sure to comment your code!
 //
@@ -28,25 +24,18 @@
 
 //Include headers and use namespace std
 #include"headers/basic.hpp" //&& sdl, string, iostream, iomanip
-#include"headers/vector3.hpp"
-#include"headers/object.hpp"
-#include"headers/render.hpp"
-#include"headers/maths.hpp"
+//#include"headers/vector3.hpp" //this is for 3d
+#include"headers/vector2.hpp" //split vector3/2 into different files
+#include"headers/render2d.hpp" //render3d.hpp is for 3d
+#include"headers/object2d.hpp"
+//#include"headers/maths.hpp" //this is for 3d
 using namespace std;
 
 //This will just cout stuff for me every so often
 void debugLoop();
 
-//Create basic object
-//기본적인(?) 오브젝트
-Camera cam(new Vector3, new Vector2); //(0,0,0)
-CRScreen screen(new Vector3(0,0,-100)); //(0,0,-100)
-Vector3 point(0,50,-200); //(0,50,-200)
-Box boxObject(new Vector3(100,100,100), false);
-Vector2 first(100,100);
-Vector2 second(100,200);
-Vector2 third(200,200);
-Vector2 fourth(200,100);
+//debug stuff
+Box2D box(new Vector2(200,200), true);
 
 //!!!!Main Function!!!!
 int main()
@@ -60,12 +49,11 @@ int main()
 	//Set render draw color
 	SDL_SetRenderDrawColor(renderer,0,0,0,255);
 
-	cam.assign(&screen);
-
 	//!!!!Main Loop!!!!
 	bool quit = false;
 	while ( quit == false )
 	{
+		oldTime = SDL_GetTicks(); //oldTime
 		//Handle events
 		if ( eventHandler() == 1 )
 		{
@@ -73,26 +61,17 @@ int main()
 		}
 		
 		//Update objects
-		cam.update();
 
 		//Debug stuff
+		SDL_SetRenderDrawColor(renderer,0,0,0,255);
 		debugLoop();
-		first = first + *(new Vector2(0,1));
-		second = second + *(new Vector2(1,0));
-		third = third + *(new Vector2(0,-1));
-		fourth = fourth + *(new Vector2(-1,0));
-		if (first.y > 200) first = *(new Vector2(100,100));
-		if (second.x > 200) second = *(new Vector2(100,200));
-		if (third.y < 100) third = *(new Vector2(200,200));
-		if (fourth.x < 100) fourth = *(new Vector2(200,100));
 
 		//Framerate cap
 		SDL_SetRenderDrawColor(renderer,255,255,255,255);
 		SDL_RenderPresent(renderer);
 		SDL_SetRenderDrawColor(renderer,0,0,0,255);
 		SDL_RenderClear(renderer);
-		FPSCap();
-
+		FPSCap(); //newTime
 	}
 	//END OF WHILE 
 
@@ -105,9 +84,8 @@ int main()
 
 void debugLoop()
 {
-	screen.drawLine(&first,&second);
-	screen.drawLine(&second,&third);
-	screen.drawLine(&third,&fourth);
-	screen.drawLine(&fourth,&first);
-	cout << "screen->normal: " << screen.normal << endl;
+	box.drawBox();
+	box.addForce(*new Vector2(0.1,0.1));
+	box.update();
+	cout << box.position << endl;
 }
