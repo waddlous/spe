@@ -11,10 +11,10 @@
 using namespace std;
 
 //Global constants and variables
-constexpr int SCREEN_W{ 1280 };
-constexpr int SCREEN_H{ 960 };
-constexpr int LOGIC_SCREEN_W{ 640 };
-constexpr int LOGIC_SCREEN_H{ 480 };
+constexpr int SCREEN_W{ 1200 };
+constexpr int SCREEN_H{ 900 };
+constexpr int LOGIC_SCREEN_W{ 800 };
+constexpr int LOGIC_SCREEN_H{ 600 };
 constexpr float SINGLEFRAME{ 1000 / 60 }; //16.666...ms
 SDL_Window* window{ nullptr };
 SDL_Renderer* renderer{ nullptr };

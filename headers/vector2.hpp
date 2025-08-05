@@ -6,15 +6,15 @@ using namespace std;
 //Vector2 class
 class Vector2
 {
-	//Attributes
+	//Attributes 
 	public:
 	float x; float y;
 	
-	//Constructor
+	//Constructor 생성자
 	public:
 	Vector2(float X = 0, float Y = 0) : x(X), y(Y) {}
 
-	//Methods
+	//Methods 메써드
 	public:
 	float magn()
 	{

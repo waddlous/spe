@@ -56,3 +56,8 @@ Octa:
     3   left    center  front  
     4   N/A bottom  N/A  
     5   N/A top N/A  
+
+## MEASUREMENTS
+
+1m = 100px
+screen dimensions 800x600

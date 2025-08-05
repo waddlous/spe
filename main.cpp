@@ -33,9 +33,10 @@ using namespace std;
 
 //This will just cout stuff for me every so often
 void debugLoop();
+int framenumber = 1;
 
 //debug stuff
-Box2D box(new Vector2(200,200), true, 2);
+Box2D box(new Vector2(100,100), true, 2);
 
 //!!!!Main Function!!!!
 int main()
@@ -49,7 +50,10 @@ int main()
 	//Set render draw color
 	SDL_SetRenderDrawColor(renderer,0,0,0,255);
 
-	box.velocity = *new Vector2(3,20);
+	//default speed 
+	//box.velocity = *new Vector2(0,500);
+	box.addForce(*new Vector2(0,1), 300);
+
 	//!!!!Main Loop!!!!
 	bool quit = false;
 	while ( quit == false )
@@ -61,7 +65,12 @@ int main()
 			quit = true;
 		}
 		
+		//Gravity (addForce ver.)
+		//box.velocity = box.velocity + gravityV;
+		box.addForce(*new Vector2(0,-1), gravityC * box.mass);
+
 		//Update objects
+
 
 		//Debug stuff
 		SDL_SetRenderDrawColor(renderer,0,0,0,255);
@@ -85,6 +94,7 @@ int main()
 
 void debugLoop()
 {
-	box.addForce(*new Vector2(0,-0.98));
+	cout << framenumber << " /// " << box.velocity << " /// " << box.position << endl;
 	box.update();
+	framenumber++; 
 }
