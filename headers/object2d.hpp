@@ -5,7 +5,11 @@ using namespace std;
 
 //Global constants and variables and functions
 Vector2 gravityV = *new Vector2(0,-16.33333333);
-const float gravityC = 16.33333333;
+const float gravityC = 16.33333333; //1 프레임에 가해지는 힘
+const float ballRadius = 12.095775675; //cm 공반지름
+const float ballMass = 0.6; //kg 공질량
+const float ballBounce = 0.8; //탄성 지수 (eg. 80% of energy retained)
+const float rimRadius = 22.5; //cm 골대반지름
 
 //I'm gonna have to use A LOT of comments for this one
 
@@ -17,17 +21,17 @@ class Box2D
 	Vector2 position; //center of the box
 	Vector2 point[4]; //check documentation for specifics
 	bool dynamic; //true -> affected by physics, false -> immovable object
-	float mass = 0.6; //IN KG
+	float mass = ballMass; //IN KG
 	Vector2 velocity = *new Vector2(0,0); //default: stationary
-	Vector2 zero = Vector2(12.3,12.3);
-	Vector2 one = Vector2(-12.3,12.3);
-	Vector2 two = Vector2(-12.3,-12.3);
-	Vector2 three = Vector2(12.3,-12.3);
-	float scale = 1;
+	Vector2 zero = Vector2(1,1);
+	Vector2 one = Vector2(-1,1);
+	Vector2 two = Vector2(-1,-1);
+	Vector2 three = Vector2(1,-1);
+	float scale = ballRadius;
 
 	//Constructor (will have default points, make a function to replace it i guess)
 	public:
-	Box2D(Vector2 pos, bool dyna, float scl = 1) : position(pos), dynamic(dyna), scale(scl)
+	Box2D(Vector2 pos, bool dyna, float scl) : position(pos), dynamic(dyna), scale(scl)
 	{
 		zero.x *= scale; //10,10
 		zero.y *= scale;
@@ -79,14 +83,14 @@ class Box2D
 	{
 		position.x = position.x + (velocity.x/60);
 		position.y = position.y + (velocity.y/60);
-		zero.x *= scale;
-		zero.y *= scale;
-		one.x *= scale;
-		one.y *= scale;
-		two.x *= scale;
-		two.y *= scale;
-		three.x *= scale;
-		three.y *= scale;
+		//	zero.x *= scale;
+		//	zero.y *= scale;
+		//	one.x *= scale;
+		//	one.y *= scale;
+		//	two.x *= scale;
+		//	two.y *= scale;
+		//	three.x *= scale;
+		//	three.y *= scale;
 		point[0] = zero + position;
 		point[1] = one + position;
 		point[2] = two + position;

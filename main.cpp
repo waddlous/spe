@@ -35,8 +35,16 @@ using namespace std;
 void debugLoop();
 int framenumber = 1;
 
+//바닥 y는 100px
+
 //debug stuff
-Box2D box(new Vector2(100,100), true, 2);
+//공은 바닥(100) + 높이(255)
+Box2D ball(new Vector2(0,0), true, 1);
+Box2D four(new Vector2(300,355), true, 1);
+Box2D six(new Vector2(160,355), true, 1);
+Box2D seven(new Vector2(40,355), true, 1);
+//백보드는 바닥(100) + 높이(305)
+Box2D goalrim(new Vector2(760,405), false, 3);
 
 //!!!!Main Function!!!!
 int main()
@@ -51,8 +59,8 @@ int main()
 	SDL_SetRenderDrawColor(renderer,0,0,0,255);
 
 	//default speed 
-	//box.velocity = *new Vector2(0,500);
-	box.addForce(*new Vector2(0,1), 300);
+	//ball.velocity = *new Vector2(0,500);
+	//ball.addForce(*new Vector2(0,1), 300);
 
 	//!!!!Main Loop!!!!
 	bool quit = false;
@@ -66,8 +74,8 @@ int main()
 		}
 		
 		//Gravity (addForce ver.)
-		//box.velocity = box.velocity + gravityV;
-		box.addForce(*new Vector2(0,-1), gravityC * box.mass);
+		//ball.velocity = ball.velocity + gravityV;
+		//ball.addForce(*new Vector2(0,-1), gravityC * ball.mass);
 
 		//Update objects
 
@@ -78,6 +86,7 @@ int main()
 
 		//Framerate cap
 		SDL_SetRenderDrawColor(renderer,255,255,255,255);
+		drawLine(new Vector2(0,100), new Vector2(800,100));
 		SDL_RenderPresent(renderer);
 		SDL_SetRenderDrawColor(renderer,0,0,0,255);
 		SDL_RenderClear(renderer);
@@ -94,7 +103,10 @@ int main()
 
 void debugLoop()
 {
-	cout << framenumber << " /// " << box.velocity << " /// " << box.position << endl;
-	box.update();
+	ball.update();
+	four.update();
+	six.update();
+	seven.update();
+	goalrim.update();
 	framenumber++; 
 }
