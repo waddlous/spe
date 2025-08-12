@@ -104,3 +104,9 @@ constructor() : **stuff**
 }  
 **other stuff** will be run first  
 1 N = 1kg•m•s^-2  
+
+### 25/08/12
+
+Not going to use dabueke77 cli  
+Instead going to use  
+https://github.com/CLIUtils/CLI11  

@@ -28,6 +28,7 @@
 #include"headers/vector2.hpp" //split vector3/2 into different files
 #include"headers/render2d.hpp" //render3d.hpp is for 3d
 #include"headers/object2d.hpp"
+#include"headers/cli.hpp"
 //#include"headers/maths.hpp" //this is for 3d
 using namespace std;
 
@@ -39,7 +40,6 @@ int framenumber = 1;
 
 //debug stuff
 //공은 바닥(100) + 높이(255)
-Box2D ball(new Vector2(0,0), true, 1);
 Box2D four(new Vector2(300,355), true, 1);
 Box2D six(new Vector2(160,355), true, 1);
 Box2D seven(new Vector2(40,355), true, 1);
@@ -47,8 +47,9 @@ Box2D seven(new Vector2(40,355), true, 1);
 Box2D goalrim(new Vector2(760,405), false, 3);
 
 //!!!!Main Function!!!!
-int main()
+int main(int argc, char** argv)
 {
+		
 	//Initialize
 	if( !init() )
 	{
@@ -66,6 +67,9 @@ int main()
 	bool quit = false;
 	while ( quit == false )
 	{
+		//Call spe_shell()
+		spe_shell();	
+		
 		oldTime = SDL_GetTicks(); //oldTime
 		//Handle events
 		if ( eventHandler() == 1 )
@@ -78,7 +82,6 @@ int main()
 		//ball.addForce(*new Vector2(0,-1), gravityC * ball.mass);
 
 		//Update objects
-
 
 		//Debug stuff
 		SDL_SetRenderDrawColor(renderer,0,0,0,255);
@@ -103,7 +106,6 @@ int main()
 
 void debugLoop()
 {
-	ball.update();
 	four.update();
 	six.update();
 	seven.update();
