@@ -64,7 +64,6 @@ int main(int argc, char** argv)
 	//ball.addForce(*new Vector2(0,1), 300);
 
 	//!!!!Main Loop!!!!
-	bool quit = false;
 	while ( quit == false )
 	{
 		//Call spe_shell()
