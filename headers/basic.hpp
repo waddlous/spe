@@ -5,9 +5,8 @@
 #include<SDL3/SDL_main.h>
 #include<string>
 #include<iostream>
-#include<math.h>
+#include<cmath>
 #include<iomanip>
-//#include"headers/cli.hpp"
 using namespace std;
 
 //Global constants and variables

@@ -57,3 +57,62 @@ Vector2 operator-(Vector2 const& v2a, Vector2 const& v2b)
 	returnvalue.y = v2a.y - v2b.y;
 	return returnvalue;
 }
+
+//Overloading "*"
+Vector2 operator*(Vector2 const& v2a, Vector2 const& v2b)
+{
+	Vector2 returnvalue;
+	returnvalue.x = v2a.x * v2b.x;
+	returnvalue.y = v2a.y * v2b.y;
+	return returnvalue;
+}
+
+//Overloading "/"
+Vector2 operator/(Vector2 const& v2a, Vector2 const& v2b)
+{
+	Vector2 returnvalue;
+	returnvalue.x = v2a.x / v2b.x;
+	returnvalue.y = v2a.y / v2b.y;
+	return returnvalue;
+}
+
+//Overloading "=="
+bool operator==(Vector2 const& v2a, Vector2 const& v2b)
+{
+	bool returnvalue = true;
+	if (v2a.x != v2b.x) returnvalue = false;
+	if (v2a.y != v2b.y) returnvalue = false;
+	return returnvalue;
+}
+
+//Overloading "!="
+bool operator!=(Vector2 const& v2a, Vector2 const& v2b)
+{
+	bool returnvalue = false;
+	if (v2a.x != v2b.x) returnvalue = true;
+	if (v2a.y != v2b.y) returnvalue = true;
+	return returnvalue;
+}
+
+float dotProduct(Vector2 a, Vector2 b)
+{
+	//a•b = ax*bx + by*by
+	float returnValue;
+	returnValue = a.x * b.x + a.y * b.y;
+	return returnValue;
+}
+
+float dotProduct(Vector2 *a, Vector2 *b)
+{
+	//a•b = ax*bx + by*by
+	float returnValue;
+	returnValue = a->x * b->x + a->y * b->y;
+	return returnValue;
+}
+
+Vector2 getd(Vector2 a, Vector2 b)
+{
+	Vector2 returnValue;
+	returnValue = b - a;
+	return returnValue;
+}

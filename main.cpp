@@ -28,7 +28,6 @@
 #include"headers/vector2.hpp" //split vector3/2 into different files
 #include"headers/render2d.hpp" //render3d.hpp is for 3d
 #include"headers/object2d.hpp"
-#include"headers/cli.hpp"
 //#include"headers/maths.hpp" //this is for 3d
 using namespace std;
 
@@ -40,16 +39,17 @@ int framenumber = 1;
 
 //debug stuff
 //공은 바닥(100) + 높이(255)
-Box2D four(new Vector2(300,355), true, 1);
-Box2D six(new Vector2(160,355), true, 1);
-Box2D seven(new Vector2(40,355), true, 1);
+//Box2D four(new Vector2(300,355), true, ballRadius);
+//Box2D six(new Vector2(160,355), true, ballRadius);
+//Box2D seven(new Vector2(40,355), true, ballRadius);
 //백보드는 바닥(100) + 높이(305)
-Box2D goalrim(new Vector2(760,405), false, 3);
+//Box2D goalrim(new Vector2(760,405), false, rimRadius);
+Box2D offense(new Vector2(320,300), true, 50);
+Box2D defense(new Vector2(300,250), true, 50);
 
 //!!!!Main Function!!!!
 int main(int argc, char** argv)
 {
-		
 	//Initialize
 	if( !init() )
 	{
@@ -60,15 +60,11 @@ int main(int argc, char** argv)
 	SDL_SetRenderDrawColor(renderer,0,0,0,255);
 
 	//default speed 
-	//ball.velocity = *new Vector2(0,500);
-	//ball.addForce(*new Vector2(0,1), 300);
-
+	
+	bool quit = false;
 	//!!!!Main Loop!!!!
 	while ( quit == false )
 	{
-		//Call spe_shell()
-		spe_shell();	
-		
 		oldTime = SDL_GetTicks(); //oldTime
 		//Handle events
 		if ( eventHandler() == 1 )
@@ -77,13 +73,12 @@ int main(int argc, char** argv)
 		}
 		
 		//Gravity (addForce ver.)
-		//ball.velocity = ball.velocity + gravityV;
-		//ball.addForce(*new Vector2(0,-1), gravityC * ball.mass);
+		//four.addForce(*new Vector2(0,-1), gravityC * four.mass);
+		//offense.addForce(*new Vector2(0,-1), gravityC * offense.mass);
 
 		//Update objects
 
 		//Debug stuff
-		SDL_SetRenderDrawColor(renderer,0,0,0,255);
 		debugLoop();
 
 		//Framerate cap
@@ -95,6 +90,7 @@ int main(int argc, char** argv)
 		FPSCap(); //newTime
 	}
 	//END OF WHILE 
+	//offense.addForce(*new Vector2(0,-1), gravityC * offense.mass);
 
 	//Closes SDL
 	close();
@@ -105,9 +101,14 @@ int main(int argc, char** argv)
 
 void debugLoop()
 {
-	four.update();
-	six.update();
-	seven.update();
-	goalrim.update();
+	//four.update();
+	//six.update();
+	//seven.update();
+	//goalrim.update();
+	offense.update();
+	defense.update();
+	cout << collision(offense, defense) << endl;
+	//collision(offense, defense);
+	
 	framenumber++; 
 }

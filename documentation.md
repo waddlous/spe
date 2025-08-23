@@ -61,4 +61,5 @@ Octa:
 
 1m = 100px
 screen dimensions 800x600
-
+dot product (a•b)
+**Study vector arithmetic pls**
