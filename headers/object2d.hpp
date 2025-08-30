@@ -10,8 +10,13 @@ const float ballRadius = 12.095775675; //cm 공반지름
 const float ballMass = 0.6; //kg 공질량
 const float ballBounce = 0.8; //탄성 지수 (eg. 80% of energy retained)
 const float rimRadius = 22.5; //cm 골대반지름
+const float boardSize = 107; //cm 백보드 높이
+const float elasticity = 1;
 
 //I'm gonna have to use A LOT of comments for this one
+
+class Box2D;
+bool collision(Box2D offense, Box2D defense);
 
 //Simple physics affected Box object
 class Box2D
@@ -70,10 +75,10 @@ class Box2D
 		position.y = position.y + (velocity.y/60);
 
 		//refresh scaling
-		zero = *new Vector2(1,1) * *new Vector2(scale,scale);
-		one = *new Vector2(-1,1) * *new Vector2(scale,scale);
-		two = *new Vector2(-1,-1) * *new Vector2(scale,scale);
-		three = *new Vector2(1,-1) * *new Vector2(scale,scale);
+		zero = *new Vector2(1,1) * scale;
+		one = *new Vector2(-1,1) * scale;
+		two = *new Vector2(-1,-1) * scale;
+		three = *new Vector2(1,-1) * scale;
 		point[0] = zero + position;
 		point[1] = one + position;
 		point[2] = two + position;
@@ -81,53 +86,6 @@ class Box2D
 
 		//draw the box
 		drawBox();
-	}
-};
-
-//Simple physics affected wall object
-class Wall2D
-{
-	//Attributes
-	public:
-	Vector2 position; //center of the wall
-	Vector2 point[2] = { nullvtr }; //check documentation for specifics
-	Vector2 zero = Vector2();
-	Vector2 one = Vector2();
-	int direction;
-	float scale; //scaling of the object
-
-	//Constructor (will have default points, make a function to replace it i guess)
-	public:
-	Wall2D(Vector2 pos, int dir, float scl) : position(pos), direction(dir), scale(scl)
-	{
-		point[0] = zero + pos;
-		point[1] = one + pos;
-	}
-	Wall2D(Vector2 *pos, int dir, float scl) : position(*pos), direction(dir), scale(scl)
-	{
-		point[0] = zero + *pos;
-		point[1] = one + *pos;
-	}
-
-	//Methods
-	public:
-	//draw
-	void drawWall()
-	{
-		drawLine(point[0],point[1]);
-		drawLine(point[1],point[2]);
-	}
-	//update
-	void update()
-	{
-		//refresh scaling
-		zero = *new Vector2(1,1) * *new Vector2(scale,scale);
-		one = *new Vector2(-1,1) * *new Vector2(scale,scale);
-		point[0] = zero + position;
-		point[1] = one + position;
-
-		//draw the wall
-		drawWall();
 	}
 };
 

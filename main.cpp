@@ -2,25 +2,6 @@
 //Make sure to comment your code!
 //
 //SPE will be a CLI program that runs natively on linux (not planning support for windows or mac)
-//
-//Summon and edit object data through commands
-//summon(name,type,position,momentum): summons either a dynamic or static object
-//delete(name): deletes a summoned object
-//tp(name,position): changes the position of an object
-//iforceset(name,momentum): sets the force of a dynamic object once
-//iforceadd(name,momentum): adds force to a dynamic object once
-//cforceset(name,momentum,time): sets the force of a dynamic object for a set amount of time
-//cforceadd(name,momentum,time): adds force to a dynamic object for a set amount of time
-//rule(rule,value): changes rules such as gravity
-//
-//Save and load from files through commands
-//save: saves to a file in the 'save' directory
-//load: loads to a file in the 'load' directory
-//log: logs all dynamic object data until stopped
-//
-//Other commands
-//quit: quits the program (not going to implement autosave)
-//delay: waits a little
 
 //Include headers and use namespace std
 #include"headers/basic.hpp" //&& sdl, string, iostream, iomanip
@@ -31,36 +12,36 @@
 //#include"headers/maths.hpp" //this is for 3d
 using namespace std;
 
-//This will just cout stuff for me every so often
-void debugLoop();
-int framenumber = 1;
+//return every frame
+void physics();
+int framenumber = 1; //just a frame count
 
 //바닥 y는 100px
 
 //debug stuff
 //공은 바닥(100) + 높이(255)
-//Box2D four(new Vector2(300,355), true, ballRadius);
-//Box2D six(new Vector2(160,355), true, ballRadius);
-//Box2D seven(new Vector2(40,355), true, ballRadius);
+Box2D near(new Vector2(300,355), true, ballRadius);
+Box2D mid(new Vector2(160,355), true, ballRadius);
+Box2D far(new Vector2(40,355), true, ballRadius);
 //백보드는 바닥(100) + 높이(305)
 //Box2D goalrim(new Vector2(760,405), false, rimRadius);
-Box2D offense(new Vector2(320,300), true, 50);
-Box2D defense(new Vector2(300,250), true, 50);
-
+Box2D backboard(new Vector2(760,405), false, 107);
+	
 //!!!!Main Function!!!!
-int main(int argc, char** argv)
+int main()
 {
 	//Initialize
 	if( !init() )
 	{
 		SDL_Log("Unable to initialize program!\n" );
 	}
-
+	
+	//Initial object values
+	near.velocity = *new Vector2(400,490);
+	
 	//Set render draw color
 	SDL_SetRenderDrawColor(renderer,0,0,0,255);
 
-	//default speed 
-	
 	bool quit = false;
 	//!!!!Main Loop!!!!
 	while ( quit == false )
@@ -71,15 +52,9 @@ int main(int argc, char** argv)
 		{
 			quit = true;
 		}
-		
-		//Gravity (addForce ver.)
-		//four.addForce(*new Vector2(0,-1), gravityC * four.mass);
-		//offense.addForce(*new Vector2(0,-1), gravityC * offense.mass);
 
 		//Update objects
-
-		//Debug stuff
-		debugLoop();
+		physics();
 
 		//Framerate cap
 		SDL_SetRenderDrawColor(renderer,255,255,255,255);
@@ -90,7 +65,6 @@ int main(int argc, char** argv)
 		FPSCap(); //newTime
 	}
 	//END OF WHILE 
-	//offense.addForce(*new Vector2(0,-1), gravityC * offense.mass);
 
 	//Closes SDL
 	close();
@@ -99,16 +73,25 @@ int main(int argc, char** argv)
 	return 0;
 }
 
-void debugLoop()
+void physics()
 {
-	//four.update();
-	//six.update();
-	//seven.update();
-	//goalrim.update();
-	offense.update();
-	defense.update();
-	cout << collision(offense, defense) << endl;
-	//collision(offense, defense);
+	//Gravity
+	near.addForce(*new Vector2(0,-1), gravityC * near.mass);	
+	//mid.addForce(*new Vector2(0,-1), gravityC * mid.mass);	
+	//far.addForce(*new Vector2(0,-1), gravityC * far.mass);	
 	
+	//Update
+	near.update();
+	if (collision(near, backboard) == true)
+	{
+		near.addForce(*new Vector2(-near.velocity.x,0), near.velocity.magn() * elasticity);
+	}
+	//mid.update();
+	//far.update();
+	//goalrim.update();
+	backboard.update();
+
+	cout << collision(near,backboard) << " / " << framenumber << endl;
+
 	framenumber++; 
 }

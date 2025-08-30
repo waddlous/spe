@@ -59,11 +59,11 @@ Vector2 operator-(Vector2 const& v2a, Vector2 const& v2b)
 }
 
 //Overloading "*"
-Vector2 operator*(Vector2 const& v2a, Vector2 const& v2b)
+Vector2 operator*(Vector2 const& v2, float ft)
 {
 	Vector2 returnvalue;
-	returnvalue.x = v2a.x * v2b.x;
-	returnvalue.y = v2a.y * v2b.y;
+	returnvalue.x = v2.x * ft;
+	returnvalue.y = v2.y * ft;
 	return returnvalue;
 }
 

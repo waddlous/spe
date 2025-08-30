@@ -7,6 +7,7 @@
 #include<iostream>
 #include<cmath>
 #include<iomanip>
+#include<stdint.h>
 using namespace std;
 
 //Global constants and variables
@@ -102,5 +103,6 @@ void FPSCap()
 {
 	nowTime = SDL_GetTicks();
 	deltaTime = nowTime - oldTime;
-	if (deltaTime < SINGLEFRAME) SDL_Delay(SINGLEFRAME - deltaTime);
+	if (deltaTime < SINGLEFRAME) SDL_Delay(uint32_t(SINGLEFRAME - float(deltaTime)));
+	//cout << nowTime << " / " << oldTime << " / " << deltaTime << " / " << (SINGLEFRAME - float(deltaTime)) << endl;
 }
