@@ -61,5 +61,10 @@ Octa:
 
 1m = 100px
 screen dimensions 800x600
+
+## Collision
+
 dot product (a•b)
 **Study vector arithmetic pls**
+anyways we're gonna use this
+it won't be too hard right??
