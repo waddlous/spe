@@ -10,19 +10,22 @@ class Vector2
 	public:
 	float x; float y;
 	
-	//Constructor 생성자
+	//Constructor
 	public:
 	Vector2(float X = 0, float Y = 0) : x(X), y(Y) {}
 
-	//Methods 메써드
+	//Methods
 	public:
+
+	//Magnitude
 	float magn()
 	{
 		float returnValue = float( sqrt(x*x+y*y) );
 		return returnValue;
 	}
-
-	Vector2 norm() //Normalize (keep direction, magnitude = 1)
+	
+	//Return normalized vector
+	Vector2 norm()
 	{
 		Vector2* returnValue = new Vector2( this->x/this->magn(), this->y/this->magn() );
 		return *returnValue;
@@ -36,7 +39,7 @@ class Vector2
 //Overloading "<<"
 std::ostream& operator<<(std::ostream& os, const Vector2 v2)
 {
-	os << v2.x << " " << v2.y;
+	os << setw(8) << v2.x << " " << setw(8) << v2.y;
 	return os;
 }
 
@@ -110,6 +113,7 @@ float dotProduct(Vector2 *a, Vector2 *b)
 	return returnValue;
 }
 
+//Get distance between 2 Vectors
 Vector2 getd(Vector2 a, Vector2 b)
 {
 	Vector2 returnValue;

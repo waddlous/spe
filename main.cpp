@@ -9,25 +9,19 @@
 #include"headers/vector2.hpp" //split vector3/2 into different files
 #include"headers/render2d.hpp" //render3d.hpp is for 3d
 #include"headers/object2d.hpp"
+#include"headers/file.hpp"
 //#include"headers/maths.hpp" //this is for 3d
 using namespace std;
 
-//return every frame
+//Pre-declaration
 void physics();
-int framenumber = 1; //just a frame count
 
-//바닥 y는 100px
+//Create objects
+Box2D ball(new Vector2(100+200,100+255), true, ballRadius);
+Box2D backboard(new Vector2(100+660+boardSize+rimRadius,100+304.8), false, boardSize);
+Box2D goalrim(new Vector2(100+660,100+304.8-rimRadius), false, rimRadius);
 
-//debug stuff
-//공은 바닥(100) + 높이(255)
-Box2D near(new Vector2(300,355), true, ballRadius);
-Box2D mid(new Vector2(160,355), true, ballRadius);
-Box2D far(new Vector2(40,355), true, ballRadius);
-//백보드는 바닥(100) + 높이(305)
-//Box2D goalrim(new Vector2(760,405), false, rimRadius);
-Box2D backboard(new Vector2(760,405), false, 107);
-	
-//!!!!Main Function!!!!
+/*!!!!Main Function!!!!*/
 int main()
 {
 	//Initialize
@@ -37,36 +31,43 @@ int main()
 	}
 	
 	//Initial object values
-	near.velocity = *new Vector2(400,490);
+	ball.velocity = *new Vector2(400,690);
 	
-	//Set render draw color
-	SDL_SetRenderDrawColor(renderer,0,0,0,255);
-
+	//Create quit flag for main loop
 	bool quit = false;
-	//!!!!Main Loop!!!!
+
+	/*!!!!Main Loop!!!!*/
 	while ( quit == false )
 	{
-		oldTime = SDL_GetTicks(); //oldTime
-		//Handle events
+		oldTime = SDL_GetTicks(); //set oldTime
+
+		//Event manager
 		if ( eventHandler() == 1 )
 		{
 			quit = true;
 		}
 
-		//Update objects
+		//Update / draw objects
 		physics();
 
-		//Framerate cap
-		SDL_SetRenderDrawColor(renderer,255,255,255,255);
-		drawLine(new Vector2(0,100), new Vector2(800,100));
+		//Draw everything else, present and clear
+		drawLine(new Vector2(0,100), new Vector2(800,100)); //floor
 		SDL_RenderPresent(renderer);
 		SDL_SetRenderDrawColor(renderer,0,0,0,255);
 		SDL_RenderClear(renderer);
-		FPSCap(); //newTime
-	}
-	//END OF WHILE 
 
-	//Closes SDL
+		//Write to output file
+		writeBox(name,&ball);
+
+		//Increase frame count
+		framenumber++;
+
+		//Framerate limiter using deltaTime
+		FPSCap(); //set newTime
+	}
+	/*END OF MAIN LOOP*/
+
+	//Close SDL
 	close();
 	
 	//Obligatory main() return
@@ -76,22 +77,16 @@ int main()
 void physics()
 {
 	//Gravity
-	near.addForce(*new Vector2(0,-1), gravityC * near.mass);	
-	//mid.addForce(*new Vector2(0,-1), gravityC * mid.mass);	
-	//far.addForce(*new Vector2(0,-1), gravityC * far.mass);	
+	ball.addForce(*new Vector2(0,-1), gravityC * ball.mass);
 	
-	//Update
-	near.update();
-	if (collision(near, backboard) == true)
-	{
-		near.addForce(*new Vector2(-near.velocity.x,0), near.velocity.magn() * elasticity);
-	}
-	//mid.update();
-	//far.update();
-	//goalrim.update();
+	//Update (includes drawing)
+	ball.update();
+	goalrim.update();
 	backboard.update();
 
-	cout << collision(near,backboard) << " / " << framenumber << endl;
-
-	framenumber++; 
+	//Collision
+	if (newCollision(ball, backboard) == true) //floor
+	{
+		ball.addForce(*new Vector2(-ball.velocity.x,0), 2 * ball.velocity.x * ball.mass * elasticity);
+	}
 }

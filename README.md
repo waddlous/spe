@@ -1,11 +1,13 @@
 # Simple Physics Engine: spe
 
-Due to development issues,  
-Only a basketball simulation framework will be implemented  
+Currently only 2D basketball simulation has been implemented  
 
 ## Basketball Simulation
 
-*ball* object  
-*basket* object  
-*backboard* object  
-Everything will be in 2 Dimensions
+The following variables have been accounted for:  
+1. Gravity  
+2. Ball size  
+3. Goal rim size  
+4. Backboard size  
+5. Elasticity of the ball  
+6. Newton's laws of motion  

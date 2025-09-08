@@ -2,19 +2,17 @@
 //Include libraries (and using namespace std)
 using namespace std;
 
-//Global constants and variables and functions
+//Constants
 Vector2 gravityV = *new Vector2(0,-16.33333333);
 Vector2 nullvtr = *new Vector2(NULL,NULL);
-const float gravityC = 16.33333333; //1 프레임에 가해지는 힘
-const float ballRadius = 12.095775675; //cm 공반지름
-const float ballMass = 0.6; //kg 공질량
-const float ballBounce = 0.8; //탄성 지수 (eg. 80% of energy retained)
-const float rimRadius = 22.5; //cm 골대반지름
-const float boardSize = 107; //cm 백보드 높이
+const float gravityC = 16.33333333;
+const float ballRadius = 12.095775675; //cm
+const float ballMass = 0.6; //kg
+const float rimRadius = 22.5; //cm
+const float boardSize = 107; //cm
 const float elasticity = 1;
 
-//I'm gonna have to use A LOT of comments for this one
-
+//Pre-declaration
 class Box2D;
 bool collision(Box2D offense, Box2D defense);
 
@@ -25,16 +23,18 @@ class Box2D
 	public:
 	Vector2 position; //center of the box
 	Vector2 point[4] = { nullvtr }; //check documentation for specifics
-	bool dynamic; //true -> affected by physics, false -> immovable object
-	float mass = ballMass; //IN KG
-	Vector2 velocity = *new Vector2(0,0); //default: stationary
+	bool dynamic; //UNUSED
+	float mass = ballMass; //kg
+	Vector2 velocity = *new Vector2(0,0); //centimeters per second
+	
+	//Relative positions for points
 	Vector2 zero = Vector2(1,1);
 	Vector2 one = Vector2(-1,1);
 	Vector2 two = Vector2(-1,-1);
 	Vector2 three = Vector2(1,-1);
-	float scale; //scaling of the object
+	float scale; //scaling
 
-	//Constructor
+	//Constructors
 	public:
 	Box2D(Vector2 pos, bool dyna, float scl) : position(pos), dynamic(dyna), scale(scl)
 	{
@@ -53,13 +53,14 @@ class Box2D
 
 	//Methods
 	public:
-	//addForce
+
+	//Add force measured in newtons
 	void addForce(Vector2 direction, float newtons)
 	{
 		velocity.x += (direction.norm().x * newtons / mass);
 		velocity.y += (direction.norm().y * newtons / mass);
 	}
-	//draw
+	//Draw to window
 	void drawBox()
 	{
 		drawLine(point[0],point[1]);
@@ -67,28 +68,31 @@ class Box2D
 		drawLine(point[2],point[3]);
 		drawLine(point[3],point[0]);
 	}
-	//update
+	//Updates basically everything
 	void update()
 	{
-		//acceleration -> position
+		//Convert velocity to movement
 		position.x = position.x + (velocity.x/60);
 		position.y = position.y + (velocity.y/60);
 
-		//refresh scaling
+		//Refresh scaling
 		zero = *new Vector2(1,1) * scale;
 		one = *new Vector2(-1,1) * scale;
 		two = *new Vector2(-1,-1) * scale;
 		three = *new Vector2(1,-1) * scale;
+
+		//Absolute positions for points
 		point[0] = zero + position;
 		point[1] = one + position;
 		point[2] = two + position;
 		point[3] = three + position;
 
-		//draw the box
+		//Draw the box
 		drawBox();
 	}
 };
 
+//Check collision (current position), UNUSED
 bool collision(Box2D offense, Box2D defense)
 {
 	bool returnValue = false;
@@ -96,7 +100,7 @@ bool collision(Box2D offense, Box2D defense)
 	Vector2 defvtr = nullvtr;
 	Vector2 neutralvtr = nullvtr;
 	int oPlus = 1;
-	bool result[4] = { true }; //if inside, true
+	bool result[4] = { true };
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -108,10 +112,54 @@ bool collision(Box2D offense, Box2D defense)
 			defvtr = getd(defense.point[o], defense.point[oPlus]);
 			if (dotProduct(offvtr, defvtr) > 0) { result[i] = false; break; }
 			else result[i] = true;
-			//cout << i << "," << o << " / " << dotProduct(offvtr, defvtr) << " / " << offvtr << " / " << defvtr << endl;
 		}
 		
-		//cout << i << " " << result[i] << endl;
+		if ((result[i]) == true) 
+		{
+			returnValue = true;
+			break;
+		}
+	}
+	
+	return returnValue;
+}
+
+//Check collision (anticipated position)
+bool newCollision(Box2D offense, Box2D defense)
+{
+	bool returnValue = false;
+
+	offense.position.x = offense.position.x + (offense.velocity.x/60);
+	offense.position.y = offense.position.y + (offense.velocity.y/60);
+	defense.position.x = defense.position.x + (defense.velocity.x/60);
+	defense.position.x = defense.position.x + (defense.velocity.y/60);
+	offense.point[0] = offense.zero + offense.position;
+	offense.point[1] = offense.one + offense.position;
+	offense.point[2] = offense.two + offense.position;
+	offense.point[3] = offense.three + offense.position;
+	defense.point[0] = defense.zero + defense.position;
+	defense.point[1] = defense.one + defense.position;
+	defense.point[2] = defense.two + defense.position;
+	defense.point[3] = defense.three + defense.position;
+
+	Vector2 offvtr = nullvtr;
+	Vector2 defvtr = nullvtr;
+	Vector2 neutralvtr = nullvtr;
+	int oPlus = 1;
+	bool result[4] = { true };
+
+	for (int i = 0; i < 4; i++)
+	{
+		for (int o = 0; o < 4; o++)
+		{
+			oPlus = o + 1;
+			if (oPlus == 4) oPlus = 0;
+			offvtr = getd(offense.point[i], defense.point[o]);
+			defvtr = getd(defense.point[o], defense.point[oPlus]);
+			if (dotProduct(offvtr, defvtr) > 0) { result[i] = false; break; }
+			else result[i] = true;
+		}
+		
 		if ((result[i]) == true) 
 		{
 			returnValue = true;

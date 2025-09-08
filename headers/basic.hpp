@@ -1,27 +1,39 @@
 //Basic header file that deals with the CLI and sdl initiation stuff
 
-//Include libraries (and using namespace std)
+//Include libraries
 #include<SDL3/SDL.h>
 #include<SDL3/SDL_main.h>
 #include<string>
 #include<iostream>
+#include<fstream>
 #include<cmath>
 #include<iomanip>
 #include<stdint.h>
+
+//Using namespace std
 using namespace std;
 
-//Global constants and variables
+//Size of window on screen
 constexpr int SCREEN_W{ 1200 };
 constexpr int SCREEN_H{ 900 };
+
+//Size of window used for calculations
 constexpr int LOGIC_SCREEN_W{ 800 };
 constexpr int LOGIC_SCREEN_H{ 600 };
+
+//60fps time for a single frame
 constexpr float SINGLEFRAME{ 1000 / 60 }; //16.666...ms
+
+//Declare objects and variables
 SDL_Window* window{ nullptr };
 SDL_Renderer* renderer{ nullptr };
 SDL_Event e;
 Uint32 oldTime = 0;
 Uint32 nowTime = 0;
 Uint32 deltaTime = 0;
+int framenumber = 1;
+string name;
+string fullname;
 
 //Startup function
 bool init()
@@ -37,7 +49,7 @@ bool init()
 	}
 	else
 	{
-		//Create window
+		//Initialize window
 		window = SDL_CreateWindow( "Simple Physics Engine", SCREEN_W, SCREEN_H, 0 );
 		if( window == nullptr )
 		{
@@ -45,7 +57,7 @@ bool init()
 			success = false;
 		}
 
-		//Create renderer
+		//Initialize renderer
 		renderer = SDL_CreateRenderer( window, nullptr );
 		if( renderer == nullptr )
 		{
@@ -54,7 +66,7 @@ bool init()
 		
 	}
 
-	//Does something that prevents problems
+	//Do something that prevents problems
 	SDL_zero(e);
 
 	//Set logical resolution
@@ -63,12 +75,14 @@ bool init()
 	//Forces out of fullscreen
 	SDL_SetWindowFullscreen(window,false);
 
-	//Friendly startup message
+	//Friendly startup message & receive output file name
 	cout << "Welcome to the Simple Physics Engine!\n\n";
+	cout << "Please name the output file: ";
+	cin >> name;
 	return success;
 }
 
-//Closes SDL stuff
+//Close SDL
 void close()
 {
 	//Destroy window
@@ -79,7 +93,7 @@ void close()
 	SDL_Quit();
 }
 
-//Handles events like the quit event, maybe even keyboard controls idk
+//Event manager
 int eventHandler()
 {
 	//Return value
@@ -98,11 +112,10 @@ int eventHandler()
 	return returnValue;
 }
 
-//Framerate cap (idk if it works but it probably does, also i used deltatime hehe)
+//Framerate cap using deltaTime
 void FPSCap()
 {
 	nowTime = SDL_GetTicks();
 	deltaTime = nowTime - oldTime;
 	if (deltaTime < SINGLEFRAME) SDL_Delay(uint32_t(SINGLEFRAME - float(deltaTime)));
-	//cout << nowTime << " / " << oldTime << " / " << deltaTime << " / " << (SINGLEFRAME - float(deltaTime)) << endl;
 }
