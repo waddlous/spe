@@ -110,3 +110,11 @@ constructor() : **stuff**
 Not going to use dabueke77 cli  
 Instead going to use  
 https://github.com/CLIUtils/CLI11  
+
+### 25/08/30
+
+Finished collison detection  
+
+### 25/09/06
+
+Touched up on some physics, improved collision detection  
