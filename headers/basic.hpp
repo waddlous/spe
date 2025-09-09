@@ -14,8 +14,8 @@
 using namespace std;
 
 //Size of window on screen
-constexpr int SCREEN_W{ 1200 };
-constexpr int SCREEN_H{ 900 };
+constexpr int SCREEN_W{ 1600 };
+constexpr int SCREEN_H{ 1200 };
 
 //Size of window used for calculations
 constexpr int LOGIC_SCREEN_W{ 800 };
