@@ -3,8 +3,9 @@
 using namespace std;
 
 //Constants
-Vector2 gravityV = *new Vector2(0,-16.33333333);
-Vector2 nullvtr = *new Vector2(NULL,NULL);
+const Vector2 gravityV = Vector2(0,-16.33333333);
+const Vector2 nullvtr = Vector2(NULL,NULL);
+const Vector2 goalCenter = Vector2(100+660,100+304.8);
 const float gravityC = 16.33333333;
 const float ballRadius = 12.095775675; //cm
 const float ballMass = 0.6; //kg

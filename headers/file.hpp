@@ -7,12 +7,10 @@ void read()
 	//???
 }
 
+ofstream *output;
+
 //Write to output file
-void writeBox(string filename, Box2D *thisbox)
+void writeBox(Box2D *thisbox)
 {
-	ofstream output;
-	output.open("result/" + filename + ".txt",ios::app);
-	output << left;
-	output << setw(3) << framenumber << " / " << thisbox->position << " / " << thisbox->velocity << "\n";
-	output.close();
+	*output << setw(3) << framenumber << " / " << thisbox->position << " / " << thisbox->velocity << " / " << getd(thisbox->position,goalCenter).magn() << "\n";
 }

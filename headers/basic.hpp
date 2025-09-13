@@ -9,6 +9,7 @@
 #include<cmath>
 #include<iomanip>
 #include<stdint.h>
+#include<stdlib.h>
 
 //Using namespace std
 using namespace std;
@@ -33,7 +34,6 @@ Uint32 nowTime = 0;
 Uint32 deltaTime = 0;
 int framenumber = 1;
 string name;
-string fullname;
 
 //Startup function
 bool init()

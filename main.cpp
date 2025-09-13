@@ -21,6 +21,17 @@ Box2D ball(new Vector2(100+200,100+255), true, ballRadius);
 Box2D backboard(new Vector2(100+660+boardSize+rimRadius,100+304.8), false, boardSize);
 Box2D goalrim(new Vector2(100+660,100+304.8-rimRadius), false, rimRadius);
 
+//Open file
+ofstream file;
+
+//Exit function
+void close_and_exit()
+{
+	//Close SDL (& file)
+	file.close();	
+	close();
+}
+
 /*!!!!Main Function!!!!*/
 int main()
 {
@@ -30,8 +41,14 @@ int main()
 		SDL_Log("Unable to initialize program!\n" );
 	}
 	
+	atexit(close_and_exit);
+	
 	//Initial object values
-	ball.velocity = *new Vector2(400,690);
+	ball.velocity = *new Vector2(370,690);
+	
+	//Output file pointer
+	file.open("result/" + name + ".txt", ios::app);
+	file << left;
 	
 	//Create quit flag for main loop
 	bool quit = false;
@@ -57,7 +74,8 @@ int main()
 		SDL_RenderClear(renderer);
 
 		//Write to output file
-		writeBox(name,&ball);
+		//writeBox(&ball);
+		file << setw(3) << framenumber << " / " << ball.position << " / " << ball.velocity << " / " << getd(ball.position,goalCenter).magn() << "\n";
 
 		//Increase frame count
 		framenumber++;
@@ -67,9 +85,8 @@ int main()
 	}
 	/*END OF MAIN LOOP*/
 
-	//Close SDL
-	close();
-	
+
+
 	//Obligatory main() return
 	return 0;
 }
