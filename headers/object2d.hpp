@@ -1,5 +1,6 @@
 //Object(for physics) class header file
 //Include libraries (and using namespace std)
+#include<vector>
 using namespace std;
 
 //Constants
@@ -170,3 +171,35 @@ bool newCollision(Box2D offense, Box2D defense)
 
 	return returnValue;
 }
+
+class Trailer
+{
+	//Attributes
+	public:
+	Box2D* trackedbox;
+	Vector2* trackedpoint;
+	vector<Vector2> points;
+	
+	//Constructors
+	public:
+	Trailer(Box2D* tb) : trackedbox(tb) {}
+
+	//Methods
+	public:
+
+	//Updates basically everything
+	void update()
+	{
+		trackedpoint = &trackedbox->position;
+		points.push_back(*trackedpoint);
+		
+		Vector2 prev = nullvtr;
+		for(auto point : points)
+		{
+			if (prev != nullvtr) drawLine(prev,point);
+			prev = point;
+		}	
+		
+	}
+};
+

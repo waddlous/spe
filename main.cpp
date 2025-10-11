@@ -10,6 +10,7 @@
 #include"headers/render2d.hpp" //render3d.hpp is for 3d
 #include"headers/object2d.hpp"
 #include"headers/file.hpp"
+#include<ctime>
 //#include"headers/maths.hpp" //this is for 3d
 using namespace std;
 
@@ -20,6 +21,7 @@ void physics();
 Box2D ball(new Vector2(100+200,100+255), true, ballRadius);
 Box2D backboard(new Vector2(100+660+boardSize+rimRadius,100+304.8), false, boardSize);
 Box2D goalrim(new Vector2(100+660,100+304.8-rimRadius), false, rimRadius);
+Trailer trail(&ball);
 
 //Open file
 ofstream file;
@@ -43,8 +45,14 @@ int main()
 	
 	atexit(close_and_exit);
 	
+	//Random control
+	srand(time(NULL));
+	int xrandom = (rand() % 101);
+	int yrandom = (rand() % 101);
+	cout << "Random offset: " << xrandom << " " << yrandom << endl;
+
 	//Initial object values
-	ball.velocity = *new Vector2(370,690);
+	ball.velocity = *new Vector2(370 - 50 + xrandom,690 - 50 + yrandom);
 	
 	//Output file pointer
 	file.open("result/" + name + ".txt", ios::app);
@@ -52,6 +60,9 @@ int main()
 	
 	//Create quit flag for main loop
 	bool quit = false;
+
+	//Create finish(?) flag for physics
+	bool finished = false;
 
 	/*!!!!Main Loop!!!!*/
 	while ( quit == false )
@@ -65,16 +76,19 @@ int main()
 		}
 
 		//Update / draw objects
-		physics();
+		if (ball.position.y <= 100) finished = true;
+		if (finished == false) physics();
 
 		//Draw everything else, present and clear
-		drawLine(new Vector2(0,100), new Vector2(800,100)); //floor
-		SDL_RenderPresent(renderer);
-		SDL_SetRenderDrawColor(renderer,0,0,0,255);
-		SDL_RenderClear(renderer);
+		drawLine(new Vector2(0,100), new Vector2(800,100)); //the ground
+		if (finished == false)
+		{
+			SDL_RenderPresent(renderer);
+			SDL_SetRenderDrawColor(renderer,0,0,0,255);
+			SDL_RenderClear(renderer);
+		}
 
 		//Write to output file
-		//writeBox(&ball);
 		file << setw(3) << framenumber << " / " << ball.position << " / " << ball.velocity << " / " << getd(ball.position,goalCenter).magn() << "\n";
 
 		//Increase frame count
@@ -100,6 +114,7 @@ void physics()
 	ball.update();
 	goalrim.update();
 	backboard.update();
+	trail.update();
 
 	//Collision
 	if (newCollision(ball, backboard) == true) //floor
