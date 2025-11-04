@@ -19,8 +19,8 @@ constexpr int SCREEN_W{ 1600 };
 constexpr int SCREEN_H{ 1200 };
 
 //Size of window used for calculations
-constexpr int LOGIC_SCREEN_W{ 800 };
-constexpr int LOGIC_SCREEN_H{ 600 };
+constexpr int LOGIC_SCREEN_W{ 1200 };
+constexpr int LOGIC_SCREEN_H{ 900 };
 
 //60fps time for a single frame
 constexpr float SINGLEFRAME{ 1000 / 60 }; //16.666...ms

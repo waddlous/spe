@@ -6,13 +6,13 @@ using namespace std;
 //Constants
 const Vector2 gravityV = Vector2(0,-16.33333333);
 const Vector2 nullvtr = Vector2(NULL,NULL);
-const Vector2 goalCenter = Vector2(100+660,100+304.8);
+const Vector2 goalCenter = Vector2(1000,100+304.8);
 const float gravityC = 16.33333333;
-const float ballRadius = 12.095775675; //cm
+const float ballRadius = 12.1;
 const float ballMass = 0.6; //kg
 const float rimRadius = 22.5; //cm
 const float boardSize = 107; //cm
-const float elasticity = 1;
+const float elasticity = 0.9;
 
 //Pre-declaration
 class Box2D;
