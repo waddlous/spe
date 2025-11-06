@@ -16,14 +16,14 @@ using namespace std;
 
 //VARIABLES
 float ballDistance = 1000 - 460;
-float xVelocity = 463.599;
-float yVelocity = 552.496;
+float xVelocity = 420.561;
+float yVelocity = 600.623;
 
 //Pre-declaration
 void physics();
 
 //Create objects
-Box2D ball(new Vector2(ballDistance,100+255), true, ballRadius);
+Box2D ball(new Vector2(ballDistance,100+260), true, ballRadius);
 Box2D backboard(new Vector2(1000+boardSize+rimRadius,100+304.8), false, boardSize);
 Box2D goalrim(new Vector2(1000,100+304.8-rimRadius), false, rimRadius);
 Trailer trail(&ball);
@@ -40,8 +40,9 @@ void close_and_exit()
 }
 
 /*!!!!Main Function!!!!*/
-int main()
+int main(int argc, char *argv[])
 {
+	name = argv[1];
 	//Initialize
 	if( !init() )
 	{
@@ -57,11 +58,11 @@ int main()
 	cout << "Random offset: " << xrandom << " " << yrandom << endl;
 
 	//Initial object values
-	ball.velocity = *new Vector2(xVelocity - 25 + xrandom, yVelocity - 25 + yrandom);
-	//ball.velocity = *new Vector2(xVelocity,yVelocity);
+	//ball.velocity = *new Vector2(xVelocity - 25 + xrandom, yVelocity - 25 + yrandom);
+	ball.velocity = *new Vector2(xVelocity,yVelocity);
 	
 	//Output file pointer
-	file.open("result/" + name + ".txt", ios::app);
+	file.open("../result/" + name + ".txt", ios::app);
 	file << left;
 	
 	//Create quit flag for main loop
@@ -82,7 +83,8 @@ int main()
 		}
 
 		//Write to output file
-		file << setw(3) << framenumber << " / " << ball.position << " / " << ball.velocity << " / " << getd(ball.position,goalCenter).magn() << "\n";
+		//file << setw(3) << framenumber << " / " << ball.position << " / " << ball.velocity << " / " << getd(ball.position,goalCenter).magn() << "\n";
+		file << getd(ball.position,goalCenter).magn() << "\n";
 
 		//Update / draw objects
 		if (ball.position.y <= 100) finished = true;

@@ -77,8 +77,8 @@ bool init()
 
 	//Friendly startup message & receive output file name
 	cout << "Welcome to the Simple Physics Engine!\n\n";
-	cout << "Please name the output file: ";
-	cin >> name;
+	//cout << "Please name the output file: ";
+	//cin >> name;
 	return success;
 }
 
