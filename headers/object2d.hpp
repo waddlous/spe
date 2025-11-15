@@ -1,13 +1,14 @@
 //Object(for physics) class header file
 //Include libraries (and using namespace std)
 #include<vector>
+#include<typeinfo>
 using namespace std;
 
 //Constants
 const Vector2 gravityV = Vector2(0,-16.33333333);
 const Vector2 nullvtr = Vector2(NULL,NULL);
 const Vector2 goalCenter = Vector2(1000,100+304.8);
-const float gravityC = 16.33333333;
+const float gravityC = 0.16333333;
 const float ballRadius = 12.1;
 const float ballMass = 0.6; //kg
 const float rimRadius = 22.5; //cm
@@ -59,16 +60,18 @@ class Box2D
 	//Add force measured in newtons
 	void addForce(Vector2 direction, float newtons)
 	{
-		velocity.x += (direction.norm().x * newtons / mass);
-		velocity.y += (direction.norm().y * newtons / mass);
+		velocity.x += ((direction.norm().x * newtons / mass)*100);
+		velocity.y += ((direction.norm().y * newtons / mass)*100);
 	}
 	//Draw to window
 	void drawBox()
 	{
+		//SDL_SetRenderDrawColor(renderer,255,0,0,255);
 		drawLine(point[0],point[1]);
 		drawLine(point[1],point[2]);
 		drawLine(point[2],point[3]);
 		drawLine(point[3],point[0]);
+		//SDL_SetRenderDrawColor(renderer,0,0,0,255);
 	}
 	//Updates basically everything
 	void update()
@@ -172,6 +175,25 @@ bool newCollision(Box2D offense, Box2D defense)
 	return returnValue;
 }
 
+Vector2 collisionOffset(Box2D offense, Box2D defense)
+{
+	Vector2 returnValue;
+
+	//current offense.position
+	Vector2 alpha = offense.position;
+	//future offense.position
+	Vector2 beta = *new Vector2(offense.position.x + (offense.velocity.x/60), offense.position.y + (offense.velocity.y/60));
+	//current wall position
+	Vector2 gamma = *new Vector2(defense.position.x - boardSize, defense.position.y);
+	float returnY = (((beta.x - alpha.x) / (beta.y - alpha.y)) * (gamma.x - alpha.x)) + alpha.y;
+	
+	returnValue = *new Vector2(gamma.x - ballRadius, returnY);
+	
+	cout << alpha << " / " << beta << " / " << gamma << " / " << returnValue << "\n";
+
+	return returnValue;
+}
+
 class Trailer
 {
 	//Attributes
@@ -188,18 +210,17 @@ class Trailer
 	public:
 
 	//Updates basically everything
-	void update()
+	void update(ofstream *file)
 	{
 		trackedpoint = &trackedbox->position;
 		points.push_back(*trackedpoint);
-		
+
 		Vector2 prev = nullvtr;
 		for(auto point : points)
 		{
-			if (prev != nullvtr) drawLine(prev,point);
+			if (prev != nullvtr) {SDL_SetRenderDrawColor(renderer,0,255,0,255); drawLine(prev,point); SDL_SetRenderDrawColor(renderer,0,0,0,255); }
 			prev = point;
 		}	
-		
 	}
 };
 

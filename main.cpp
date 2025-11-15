@@ -9,15 +9,16 @@
 #include"headers/vector2.hpp" //split vector3/2 into different files
 #include"headers/render2d.hpp" //render3d.hpp is for 3d
 #include"headers/object2d.hpp"
-#include"headers/file.hpp"
 #include<ctime>
 //#include"headers/maths.hpp" //this is for 3d
 using namespace std;
 
 //VARIABLES
-float ballDistance = 1000 - 460;
-float xVelocity = 420.561;
-float yVelocity = 600.623;
+float ballDistance = 1000 - 720;
+float xVelocity = 508.219;
+float yVelocity = 725.812 - 8.16666;
+bool randomEnabled = true;
+bool nextFrame = false;
 
 //Pre-declaration
 void physics();
@@ -58,8 +59,8 @@ int main(int argc, char *argv[])
 	cout << "Random offset: " << xrandom << " " << yrandom << endl;
 
 	//Initial object values
-	//ball.velocity = *new Vector2(xVelocity - 25 + xrandom, yVelocity - 25 + yrandom);
-	ball.velocity = *new Vector2(xVelocity,yVelocity);
+	if (randomEnabled == true) ball.velocity = *new Vector2(xVelocity - 25 + xrandom, yVelocity - 25 + yrandom);
+	if (randomEnabled == false) ball.velocity = *new Vector2(xVelocity,yVelocity);
 	
 	//Output file pointer
 	file.open("../result/" + name + ".txt", ios::app);
@@ -84,14 +85,16 @@ int main(int argc, char *argv[])
 
 		//Write to output file
 		//file << setw(3) << framenumber << " / " << ball.position << " / " << ball.velocity << " / " << getd(ball.position,goalCenter).magn() << "\n";
+		
+		//file << setw(7) << getd(ball.position,goalCenter).magn() << " / "<< ball.position << "\n";
 		file << getd(ball.position,goalCenter).magn() << "\n";
+		//file << ball.position << endl;
 
 		//Update / draw objects
-		if (ball.position.y <= 100) finished = true;
+		if (ball.position.y <= 100) { finished = true; quit = true; }
 		if (finished == false) physics();
 
-		//Draw everything else, present and clear
-		drawLine(new Vector2(0,100), new Vector2(1200,100)); //the ground
+		//Present and clear
 		if (finished == false)
 		{
 			SDL_RenderPresent(renderer);
@@ -115,18 +118,31 @@ int main(int argc, char *argv[])
 
 void physics()
 {
+	//Collision
+	if (newCollision(ball, backboard) == true)
+	{
+		//failed
+		//ball.position = collisionOffset(ball, backboard);
+		ball.addForce(*new Vector2(-ball.velocity.x,0), ((ball.velocity.x * ball.mass) + (ball.velocity.x * ball.mass * elasticity)) / 100);
+	}
+
 	//Update (includes drawing)
+	SDL_SetRenderDrawColor(renderer,209,113,179,255);
 	ball.update();
+	SDL_SetRenderDrawColor(renderer,255,0,0,255);
 	goalrim.update();
+	SDL_SetRenderDrawColor(renderer,153,238,255,255);
 	backboard.update();
-	trail.update();
+	trail.update(&file);
+	
+	//non-object drawing
+	SDL_SetRenderDrawColor(renderer,255,255,0,255);
+	drawLine(new Vector2(1000,100+306), new Vector2(1000,100+303.6)); //center indicator
+	SDL_SetRenderDrawColor(renderer,0,0,0,255);
+	SDL_SetRenderDrawColor(renderer,0,0,0,255);
+	drawLine(new Vector2(0,100), new Vector2(1200,100)); //the ground
+	SDL_SetRenderDrawColor(renderer,0,0,0,255);
 	
 	//Gravity
 	ball.addForce(*new Vector2(0,-1), gravityC * ball.mass);
-
-	//Collision
-	if (newCollision(ball, backboard) == true) //floor
-	{
-		ball.addForce(*new Vector2(-ball.velocity.x,0), 2 * ball.velocity.x * ball.mass * elasticity);
-	}
 }
